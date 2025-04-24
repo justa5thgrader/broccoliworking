@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCI home</title>
+    <link rel="shortcut icon" href="https://www.canvas.net/favicon.ico" type="image/x-icon">
+    <!-- UV required scripts -->
+    <script src="/uv/uv.bundle.js"></script>
+    <script src="/uv/uv.config.js"></script>
+    <script src="/baremux/index.js"></script>
+    <script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("/uv/sw.js");
+        });
+    }
+    </script>
+    <style>
+        :root {
+            --primary-color: #00ff00;
+            --secondary-color: #00cc00;
+            --background-color: #000;
+            --text-color: #fff;
+            --accent-color: #00ff00;
+            --hover-color: #00cc00;
+            --border-color: #00ff00;
+            --shadow-color: rgba(0, 255, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        /* Blinking cursor effect */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Matrix-like rain effect for background */
+        @keyframes matrixRain {
+            0% { top: -10%; }
+            100% { top: 100%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            background: rgba(0, 10, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 50px;
+        }
+
+        .main-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0f0, transparent);
+            animation: scanline 2s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        
+        h1, h2, h3, h4 {
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            max-width: 150px;
+            filter: drop-shadow(0 0 5px #0f0);
+        }
+
+        .header {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .main-tabs {
+            display: flex;
+            border-bottom: 2px solid #0f0;
+            margin-bottom: 25px;
+        }
+
+        .main-tab {
+            padding: 10px 20px;
+            background: rgba(0, 20, 0, 0.5);
+            color: #0f0;
+            border: 1px solid #0f0;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .main-tab::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 0, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+
+        .main-tab:hover::before {
+            transform: translateX(0);
+        }
+
+        .main-tab.active {
+            background: rgba(0, 40, 0, 0.8);
+            color: #fff;
+            text-shadow: 0 0 5px #0f0;
+            border-color: #0f0;
+        }
+
+        .main-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #0f0;
+            box-shadow: 0 0 10px #0f0;
+        }
+
+        .main-tab-content {
+            display: none;
+        }
+
+        .main-tab-content.active {
+            display: block;
+            animation: glitchIn 0.3s ease-out;
+        }
+
+        @keyframes glitchIn {
+            0% {
+                opacity: 0;
+                transform: translateX(10px);
+            }
+            20% {
+                opacity: 0.3;
+                transform: translateX(-5px);
+            }
+            40% {
+                opacity: 0.5;
+                transform: translateX(5px);
+            }
+            60% {
+                opacity: 0.7;
+                transform: translateX(-3px);
+            }
+            80% {
+                opacity: 0.9;
+                transform: translateX(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Interactive Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-panel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 10px;
+            background: #0f0;
+            border-radius: 0 0 0 10px;
+            box-shadow: 0 0 8px #0f0;
+        }
+        
+        .subtitle {
+            color: #0f0;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .title {
+            color: #0f0;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+            position: relative;
+        }
+
+        .title::after {
+            content: "_";
+            animation: blink 1s infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes moveLight {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            text-shadow: 0 0 10px var(--shadow-color);
+            margin-bottom: 10px;
+        }
+
+        .nav-input {
+            width: 100%;
+            max-width: 800px;
+            padding: 15px;
+            margin: 20px auto;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--shadow-color);
+            border-color: var(--accent-color);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .setting-item {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .setting-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+        }
+
+        .select-group {
+            margin: 10px 0;
+        }
+
+        .select-group select {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 5px;
+        }
+
+        /* New styles for advanced features */
+        .cloak-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .cloak-item {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cloak-item:hover {
+            background: rgba(0, 40, 0, 0.8);
+            border-color: #0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .cloak-item::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+
+        .cloak-item:hover::after {
+            transform: translateX(100%);
+        }
+
+        .proxy-item {
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .proxy-item:hover {
+            background: rgba(0, 40, 0, 0.7);
+            border-color: #0f0;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+        }
+
+        .proxy-item.active {
+            background: rgba(0, 50, 0, 0.8);
+            border: 1px solid #0f0;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+        }
+
+        .proxy-details, .proxy-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: rgba(0, 255, 0, 0.7);
+        }
+
+        .flag-icon {
+            width: 16px;
+            height: 12px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .reliability-perfect { color: #00ff00; }
+        .reliability-good { color: #aaff00; }
+        .reliability-medium { color: #ffff00; }
+        .reliability-poor { color: #ff6600; }
+        .reliability-new { color: #00ffff; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Add browser container styles */
+        .browser-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .browser-header {
+            background: rgba(0, 20, 0, 0.8);
+            padding: 10px;
+            border-bottom: 1px solid #0f0;
+        }
+
+        .browser-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .browser-btn {
+            background: rgba(0, 40, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .browser-btn:hover {
+            background: rgba(0, 60, 0, 0.9);
+        }
+
+        .browser-address-bar {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .browser-tabs {
+            display: flex;
+            gap: 5px;
+        }
+
+        .browser-tab {
+            background: rgba(0, 30, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 5px 15px;
+            cursor: pointer;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .browser-tab.active {
+            background: rgba(0, 50, 0, 0.9);
+        }
+
+        .browser-content {
+            flex: 1;
+            background: #000;
+            overflow: auto;
+        }
+
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #0f0;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 255, 0, 0.3);
+            border-radius: 50%;
+            border-top-color: #0f0;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Add glass panel styles */
+        .glass-panel {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 255, 0, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+        }
+
+        .input-group button {
+            padding: 10px 20px;
+            background: rgba(0, 40, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .input-group button:hover {
+            background: rgba(0, 60, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        #new-tab-btn {
+            background: rgba(0, 60, 0, 0.9);
+            border: 1px solid #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        #new-tab-btn:hover {
+            background: rgba(0, 80, 0, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+        }
+
+        .proxy-selector {
+            margin-top: 20px;
+        }
+
+        .proxy-selector h3 {
+            color: #0f0;
+            margin-bottom: 10px;
+        }
+
+        .features-list {
+            margin-top: 20px;
+        }
+
+        .features-list ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            padding: 5px 0;
+            color: #0f0;
+        }
+
+        .favicon-preview {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border-radius: 2px;
+        }
+
+        /* Add responsive styles */
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+
+            .glass-panel {
+                padding: 15px;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cloak-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Matrix rain animation canvas */
+        #matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* Add missing features */
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 5px;
+            background: rgba(0, 20, 0, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(0, 40, 0, 0.5);
+            transform: translateX(5px);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #0f0;
+            border-radius: 4px;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+            background: rgba(0, 20, 0, 0.5);
+        }
+
+        .checkbox-item input[type="checkbox"]:checked {
+            background: #0f0;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked::after {
+            content: "✓";
+            position: absolute;
+            color: #000;
+            font-size: 14px;
+            top: -2px;
+            left: 3px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 20, 0, 0.5);
+            transition: .4s;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 3px;
+            background-color: rgba(0, 255, 0, 0.7);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: rgba(0, 60, 0, 0.7);
+            border-color: #0f0;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: #0f0;
+            box-shadow: 0 0 8px #0f0;
+        }
+
+        /* Add emergency shortcuts styling */
+        .emergency-shortcuts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .shortcut-item {
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .shortcut-item:hover {
+            background: rgba(0, 40, 0, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .shortcut-key {
+            font-weight: bold;
+            color: #0f0;
+            margin-bottom: 5px;
+        }
+
+        .shortcut-desc {
+            font-size: 0.9em;
+            color: rgba(0, 255, 0, 0.7);
+        }
+
+        /* Add cloaking power meter */
+        .power-meter {
+            height: 20px;
+            background: rgba(0, 20, 0, 0.5);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .power-level {
+            height: 100%;
+            width: 85%;
+            background: linear-gradient(90deg, #073700, #0f0);
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .power-level::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.3), transparent);
+            background-size: 200% 100%;
+            animation: moveLight 2s infinite linear;
+        }
+
+        /* Add cloaking status indicator */
+        .cloak-status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #0f0;
+            margin-right: 10px;
+            box-shadow: 0 0 10px #0f0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Add custom cloak input styling */
+        .custom-cloak-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .custom-cloak-input::placeholder {
+            color: rgba(0, 255, 0, 0.5);
+        }
+
+        /* Add proxy speed test styling */
+        .speed-test {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .speed-test-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .speed-test-item {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .speed-test-value {
+            font-size: 1.2em;
+            color: #0f0;
+            font-weight: bold;
+        }
+
+        .speed-test-label {
+            font-size: 0.9em;
+            color: rgba(0, 255, 0, 0.7);
+        }
+
+        /* Add emergency features */
+        .emergency-panel {
+            background: rgba(20, 0, 0, 0.7);
+            border: 1px solid #f00;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            animation: emergencyPulse 2s infinite;
+        }
+
+        @keyframes emergencyPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+
+        .emergency-button {
+            background: #f00;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .emergency-button:hover {
+            background: #ff3333;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Add advanced cloaking options */
+        .advanced-cloak-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .cloak-option {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cloak-option:hover {
+            background: rgba(0, 40, 0, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .cloak-option-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #0f0;
+        }
+
+        /* Add proxy chain configuration */
+        .proxy-chain {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .proxy-chain-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        .proxy-chain-number {
+            width: 30px;
+            height: 30px;
+            background: #0f0;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Add proxy statistics */
+        .proxy-stats-panel {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            color: #0f0;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: rgba(0, 255, 0, 0.7);
+        }
+
+        /* Add proxy history */
+        .proxy-history {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .history-time {
+            color: rgba(0, 255, 0, 0.7);
+            font-size: 0.9em;
+        }
+
+        .history-url {
+            color: #0f0;
+            flex: 1;
+            margin: 0 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Add proxy favorites */
+        .proxy-favorites {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .favorite-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .favorite-item:hover {
+            background: rgba(0, 40, 0, 0.7);
+            transform: translateX(5px);
+        }
+
+        .favorite-icon {
+            margin-right: 10px;
+            color: #0f0;
+        }
+
+        /* Add proxy presets */
+        .proxy-presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .preset-item {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preset-item:hover {
+            background: rgba(0, 40, 0, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .preset-name {
+            color: #0f0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .preset-description {
+            color: rgba(0, 255, 0, 0.7);
+            font-size: 0.9em;
+        }
+
+        /* Add proxy rotation settings */
+        .proxy-rotation {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .rotation-settings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .rotation-item {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .rotation-value {
+            font-size: 1.2em;
+            color: #0f0;
+            font-weight: bold;
+        }
+
+        /* Add network diagnostics */
+        .network-diagnostics {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .diagnostic-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .diagnostic-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .status-good { background: #0f0; box-shadow: 0 0 10px #0f0; }
+        .status-warning { background: #ff0; box-shadow: 0 0 10px #ff0; }
+        .status-error { background: #f00; box-shadow: 0 0 10px #f00; }
+
+        /* Add advanced security settings */
+        .security-settings {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .security-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .security-level {
+            display: flex;
+            align-items: center;
+        }
+
+        .level-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        /* Add proxy blacklist */
+        .proxy-blacklist {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .blacklist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .blacklist-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Add proxy whitelist */
+        .proxy-whitelist {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .whitelist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* Add proxy rules */
+        .proxy-rules {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .rule-pattern {
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        /* Add proxy logs */
+        .proxy-logs {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            padding: 10px;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+            font-family: monospace;
+        }
+
+        .log-time {
+            color: rgba(0, 255, 0, 0.7);
+            margin-right: 10px;
+        }
+
+        .log-level {
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+
+        .level-info { background: rgba(0, 255, 0, 0.2); }
+        .level-warning { background: rgba(255, 255, 0, 0.2); }
+        .level-error { background: rgba(255, 0, 0, 0.2); }
+
+        /* Add proxy cache */
+        .proxy-cache {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .cache-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cache-item {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* Add proxy compression */
+        .proxy-compression {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .compression-level {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .compression-slider {
+            flex: 1;
+            margin: 0 15px;
+        }
+
+        /* Add proxy authentication */
+        .proxy-auth {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .auth-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .auth-input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        /* Add proxy SSL settings */
+        .proxy-ssl {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .ssl-cert {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+
+        /* Add proxy headers */
+        .proxy-headers {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .header-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .header-name {
+            width: 150px;
+            margin-right: 10px;
+        }
+
+        .header-value {
+            flex: 1;
+        }
+
+        /* Add cloaking methods dropdown */
+        .cloaking-methods {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .method-selector {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .method-option {
+            background: rgba(0, 20, 0, 0.9);
+            color: #0f0;
+            padding: 10px;
+        }
+
+        .method-option:hover {
+            background: rgba(0, 40, 0, 0.9);
+        }
+
+        .method-description {
+            color: rgba(0, 255, 0, 0.7);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .method-advanced {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .method-params {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .param-input {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .param-label {
+            color: #0f0;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .method-preview {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #0f0;
+            background: #000;
+            margin-top: 10px;
+        }
+
+        .method-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-button {
+            padding: 10px 20px;
+            background: rgba(0, 40, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-button:hover {
+            background: rgba(0, 60, 0, 0.9);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .method-category {
+            color: #0f0;
+            font-weight: bold;
+            margin: 15px 0 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .cloaking-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .cloaking-option-group {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .cloaking-option-group h4 {
+            color: #0f0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .input-group {
+            margin: 10px 0;
+        }
+
+        .input-group label {
+            display: block;
+            color: #0f0;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+        }
+
+        .cloaking-presets {
+            margin-top: 20px;
+        }
+
+        .preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .preset-btn {
+            padding: 10px;
+            background: rgba(0, 40, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .preset-btn:hover {
+            background: rgba(0, 60, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .preset-btn::before {
+            content: "";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .preset-btn[data-preset="google"]::before { background-image: url('https://www.google.com/favicon.ico'); }
+        .preset-btn[data-preset="youtube"]::before { background-image: url('https://www.youtube.com/favicon.ico'); }
+        .preset-btn[data-preset="docs"]::before { background-image: url('https://docs.google.com/favicon.ico'); }
+        .preset-btn[data-preset="classroom"]::before { background-image: url('https://classroom.google.com/favicon.ico'); }
+        .preset-btn[data-preset="canvas"]::before { background-image: url('https://www.canvas.net/favicon.ico'); }
+        .preset-btn[data-preset="khan"]::before { background-image: url('https://www.khanacademy.org/favicon.ico'); }
+        .preset-btn[data-preset="edpuzzle"]::before { background-image: url('https://edpuzzle.com/favicon.ico'); }
+        .preset-btn[data-preset="quizlet"]::before { background-image: url('https://quizlet.com/favicon.ico'); }
+        .preset-btn[data-preset="nearpod"]::before { background-image: url('https://nearpod.com/favicon.ico'); }
+        .preset-btn[data-preset="pearson"]::before { background-image: url('https://www.pearson.com/favicon.ico'); }
+        .preset-btn[data-preset="mcgraw"]::before { background-image: url('https://www.mheducation.com/favicon.ico'); }
+        .preset-btn[data-preset="schoology"]::before { background-image: url('https://www.schoology.com/favicon.ico'); }
+        .preset-btn[data-preset="blackboard"]::before { background-image: url('https://www.blackboard.com/favicon.ico'); }
+        .preset-btn[data-preset="moodle"]::before { background-image: url('https://moodle.org/favicon.ico'); }
+        .preset-btn[data-preset="edmodo"]::before { background-image: url('https://www.edmodo.com/favicon.ico'); }
+        .preset-btn[data-preset="seesaw"]::before { background-image: url('https://web.seesaw.me/favicon.ico'); }
+        .preset-btn[data-preset="flipgrid"]::before { background-image: url('https://flipgrid.com/favicon.ico'); }
+        .preset-btn[data-preset="padlet"]::before { background-image: url('https://padlet.com/favicon.ico'); }
+        .preset-btn[data-preset="wakelet"]::before { background-image: url('https://wakelet.com/favicon.ico'); }
+        .preset-btn[data-preset="peardeck"]::before { background-image: url('https://www.peardeck.com/favicon.ico'); }
+    </style>
+</head>
+<body>
+    <!-- Particles background -->
+    <div id="particles-js" class="particles-container"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg class="broccoli-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48">
+                    <path d="M50,5 C40,5 30,15 30,25 C30,35 40,45 50,45 C60,45 70,35 70,25 C70,15 60,5 50,5 Z" fill="#4CAF50"/>
+                    <path d="M50,45 C40,45 30,55 30,65 C30,75 40,85 50,85 C60,85 70,75 70,65 C70,55 60,45 50,45 Z" fill="#388E3C"/>
+                    <path d="M30,25 C20,25 10,35 10,45 C10,55 20,65 30,65 C40,65 50,55 50,45 C50,35 40,25 30,25 Z" fill="#4CAF50"/>
+                    <path d="M70,25 C60,25 50,35 50,45 C50,55 60,65 70,65 C80,65 90,55 90,45 C90,35 80,25 70,25 Z" fill="#4CAF50"/>
+                    <rect x="45" y="85" width="10" height="15" fill="#8D6E63"/>
+                </svg>
+                <h1>Broccoli Direct</h1>
+            </div>
+            <nav>
+                <div class="header">
+                    <div style="color: #FFD700; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-bottom: 20px;">
+                        broccoli direct
+                    </div>
+                    <!-- ... rest of the header content ... -->
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Navigation Tabs -->
+        <div class="main-tabs">
+            <div class="main-tab active" data-tab="browser">Browser</div>
+            <div class="main-tab" data-tab="settings">Settings</div>
+            <div class="main-tab" data-tab="cloaking">Cloaking</div>
+            <div class="main-tab" data-tab="about-blank">About Blank</div>
+            <div class="main-tab" data-tab="about">About</div>
+        </div>
+
+        <!-- Browser Tab Content -->
+        <div class="main-tab-content active" id="browser-tab">
+            <div class="glass-panel">
+                <div class="input-group">
+                    <input type="text" id="url-input" placeholder="Enter URL to browse securely... (e.g., https://example.com)">
+                    <button id="navigate-btn">Navigate</button>
+                    <button id="new-tab-btn">Open in New Tab</button>
+                </div>
+                
+                <div class="proxy-selector">
+                    <h3>Available Proxy Servers</h3>
+                    <div class="proxy-list" id="proxy-list">
+                        <!-- Proxy servers will be listed here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab Content -->
+        <div class="main-tab-content" id="settings-tab">
+            <div class="glass-panel">
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <h3>Security Settings</h3>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="blockScripts" checked>
+                            <label for="blockScripts">Block Scripts</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="blockFingerprint" checked>
+                            <label for="blockFingerprint">Block Fingerprinting</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="blockCookies" checked>
+                            <label for="blockCookies">Block Cookies</label>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <h3>Proxy Settings</h3>
+                        <div class="select-group">
+                            <label for="proxyServer">Proxy Server:</label>
+                            <select id="proxyServer">
+                                <option value="uv">Ultraviolet</option>
+                                <option value="dynamic">Dynamic</option>
+                                <option value="rammerhead">Rammerhead</option>
+                            </select>
+                        </div>
+                        <div class="select-group">
+                            <label for="proxyType">Proxy Type:</label>
+                            <select id="proxyType">
+                                <option value="elite">Elite</option>
+                                <option value="anonymous">Anonymous</option>
+                                <option value="transparent">Transparent</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cloaking Tab Content -->
+        <div class="main-tab-content" id="cloaking-tab">
+            <div class="glass-panel">
+                <h3>Tab Cloak</h3>
+                <button onclick="setTab('Canvas LMS', 'https://sso.canvaslms.com/login/canvas/favicon.ico')" class="btn">Canvas LMS</button>
+            </div>
+        </div>
+
+        <!-- Advanced Cloaking Tab Content -->
+        <div class="main-tab-content" id="advanced-cloaking-tab">
+            <div class="glass-panel">
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <h3>Visual Cloaking</h3>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="cloak-title" checked>
+                            <label for="cloak-title">Change Tab Title</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="cloak-favicon" checked>
+                            <label for="cloak-favicon">Replace Favicon</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="cloak-url-bar" checked>
+                            <label for="cloak-url-bar">Mask URL in Address Bar</label>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <h3>Technical Cloaking</h3>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="cloak-history" checked>
+                            <label for="cloak-history">Modify Browser History</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="cloak-referrer" checked>
+                            <label for="cloak-referrer">Spoof HTTP Referrer</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="cloak-useragent" checked>
+                            <label for="cloak-useragent">User-Agent Modification</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Blank Tab Content -->
+        <div class="main-tab-content" id="about-blank-tab">
+            <div class="glass-panel">
+                <h3>About Blank Cloaking</h3>
+                <div class="input-group">
+                    <label for="ab-target-url">Target URL:</label>
+                    <input type="text" id="ab-target-url" placeholder="Enter URL to cloak...">
+                </div>
+                <div class="input-group">
+                    <label for="ab-title">Display Title:</label>
+                    <input type="text" id="ab-title" placeholder="Enter display title...">
+                </div>
+                <div class="input-group">
+                    <label for="ab-favicon">Favicon URL:</label>
+                    <input type="text" id="ab-favicon" placeholder="Enter favicon URL...">
+                </div>
+                <div class="input-group">
+                    <label for="ab-display-url">Display URL:</label>
+                    <input type="text" id="ab-display-url" placeholder="Enter display URL...">
+                </div>
+                <div class="button-group">
+                    <button id="ab-preview" class="btn">Preview</button>
+                    <button id="ab-apply" class="btn">Open in New Tab</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Tab Content -->
+        <div class="main-tab-content" id="about-tab">
+            <div class="glass-panel">
+                <h2>About Broccoli Direct</h2>
+                <p>Broccoli Direct is a secure web navigation tool that provides advanced privacy features and proxy capabilities.</p>
+                <p>Version: 1.0.0</p>
+                <div class="features-list">
+                    <h3>Features:</h3>
+                    <ul>
+                        <li>Secure Web Browsing</li>
+                        <li>Multiple Proxy Support</li>
+                        <li>Advanced Cloaking</li>
+                        <li>Privacy Protection</li>
+                        <li>Customizable Settings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Browser Container -->
+    <div class="browser-container" id="browser-container" style="display: none;">
+        <div class="browser-header">
+            <div class="browser-controls">
+                <button id="back-btn" class="browser-btn">←</button>
+                <button id="forward-btn" class="browser-btn">→</button>
+                <button id="refresh-btn" class="browser-btn">↻</button>
+                <input type="text" id="browser-address-bar" class="browser-address-bar" placeholder="Enter URL...">
+                <button id="go-btn" class="browser-btn">Go</button>
+            </div>
+            <div class="browser-tabs">
+                <div class="browser-tab active">New Tab</div>
+            </div>
+        </div>
+        <div class="browser-content" id="browser-content">
+            <div class="loading-indicator" id="loading-indicator" style="display: none;">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matrix rain animation canvas -->
+    <canvas id="matrix-rain"></canvas>
+
+    <!-- Error Modal -->
+    <div id="uv-error" class="glass-panel" style="display: none;">
+        <div class="error-title">Error</div>
+        <div id="uv-error-message"></div>
+        <button id="uv-error-close">Close</button>
+    </div>
+
+    <script>
+        // Initialize BareMux connection
+        const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
+        const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
+        
+        // Update only the proxy URL creation in ab-apply onclick
+        document.getElementById('ab-apply').onclick = async function() {
+            const url = document.getElementById('ab-target-url').value;
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+
+            if (!await connection.getTransport()) {
+                await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+            }
+
+            const win = window.open('about:blank');
+            win.document.write(`
+                <html>
+                <head>
+                    <title>Canvas LMS</title>
+                    <link rel="icon" href="https://sso.canvaslms.com/login/canvas/favicon.ico">
+                </head>
+                <body style="margin:0;padding:0;">
+                    <iframe src="${__uv$config.prefix + __uv$config.encodeUrl(url)}" style="border:none;width:100%;height:100vh;"></iframe>
+                </body>
+                </html>
+            `);
+            win.document.close();
+        };
+
+        // Keep all other existing scripts
+        // ... rest of existing scripts ...
+    </script>
+</body>
+</html> 
