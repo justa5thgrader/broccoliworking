@@ -3062,40 +3062,36 @@
         // Simple about:blank cloaking
         document.getElementById('ab-apply').onclick = function() {
             const url = document.getElementById('ab-target-url').value;
-            const title = document.getElementById('ab-title').value;
-            const favicon = document.getElementById('ab-favicon').value;
-            const displayUrl = document.getElementById('ab-display-url').value;
-
             if (!url) {
                 alert('Please enter a URL');
                 return;
             }
 
-            const win = window.open('about:blank');
-            if (!win) {
-                alert('Please allow popups');
-                return;
+            // Format URL if needed
+            let targetUrl = url;
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                targetUrl = 'https://' + url;
             }
 
+            // Create the UV proxy URL
+            const proxyUrl = '/uv/' + encodeURIComponent(targetUrl);
+
+            // Open about:blank window
+            const win = window.open('about:blank');
+            
+            // Write the proxy iframe to the new window
             win.document.write(`
                 <html>
                 <head>
-                    <title>${title || 'Loading...'}</title>
-                    ${favicon ? `<link rel="icon" href="${favicon}">` : ''}
+                    <title>Canvas LMS</title>
+                    <link rel="icon" href="https://sso.canvaslms.com/login/canvas/favicon.ico">
                 </head>
-                <body style="margin:0;padding:0;overflow:hidden;">
-                    <iframe src="${url}" style="border:none;width:100vw;height:100vh;"></iframe>
+                <body style="margin:0;padding:0;">
+                    <iframe src="${proxyUrl}" style="border:none;width:100%;height:100vh;"></iframe>
                 </body>
                 </html>
             `);
-
-            if (displayUrl) {
-                try {
-                    win.history.pushState({}, '', displayUrl);
-                } catch (e) {
-                    console.error('Failed to set URL:', e);
-                }
-            }
+            win.document.close();
         };
 
         // Handle preset buttons
