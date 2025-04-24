@@ -649,10 +649,25 @@
             cursor: pointer;
             border-radius: 4px;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .input-group button:hover {
             background: rgba(0, 60, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        #new-tab-btn {
+            background: rgba(0, 60, 0, 0.9);
+            border: 1px solid #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        #new-tab-btn:hover {
+            background: rgba(0, 80, 0, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
         }
 
         .proxy-selector {
@@ -908,6 +923,786 @@
         .custom-cloak-input::placeholder {
             color: rgba(0, 255, 0, 0.5);
         }
+
+        /* Add proxy speed test styling */
+        .speed-test {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .speed-test-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .speed-test-item {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .speed-test-value {
+            font-size: 1.2em;
+            color: #0f0;
+            font-weight: bold;
+        }
+
+        .speed-test-label {
+            font-size: 0.9em;
+            color: rgba(0, 255, 0, 0.7);
+        }
+
+        /* Add emergency features */
+        .emergency-panel {
+            background: rgba(20, 0, 0, 0.7);
+            border: 1px solid #f00;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            animation: emergencyPulse 2s infinite;
+        }
+
+        @keyframes emergencyPulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+
+        .emergency-button {
+            background: #f00;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .emergency-button:hover {
+            background: #ff3333;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Add advanced cloaking options */
+        .advanced-cloak-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .cloak-option {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cloak-option:hover {
+            background: rgba(0, 40, 0, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .cloak-option-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #0f0;
+        }
+
+        /* Add proxy chain configuration */
+        .proxy-chain {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .proxy-chain-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        .proxy-chain-number {
+            width: 30px;
+            height: 30px;
+            background: #0f0;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Add proxy statistics */
+        .proxy-stats-panel {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            color: #0f0;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: rgba(0, 255, 0, 0.7);
+        }
+
+        /* Add proxy history */
+        .proxy-history {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .history-time {
+            color: rgba(0, 255, 0, 0.7);
+            font-size: 0.9em;
+        }
+
+        .history-url {
+            color: #0f0;
+            flex: 1;
+            margin: 0 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Add proxy favorites */
+        .proxy-favorites {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .favorite-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .favorite-item:hover {
+            background: rgba(0, 40, 0, 0.7);
+            transform: translateX(5px);
+        }
+
+        .favorite-icon {
+            margin-right: 10px;
+            color: #0f0;
+        }
+
+        /* Add proxy presets */
+        .proxy-presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .preset-item {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preset-item:hover {
+            background: rgba(0, 40, 0, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .preset-name {
+            color: #0f0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .preset-description {
+            color: rgba(0, 255, 0, 0.7);
+            font-size: 0.9em;
+        }
+
+        /* Add proxy rotation settings */
+        .proxy-rotation {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .rotation-settings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .rotation-item {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .rotation-value {
+            font-size: 1.2em;
+            color: #0f0;
+            font-weight: bold;
+        }
+
+        /* Add network diagnostics */
+        .network-diagnostics {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .diagnostic-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .diagnostic-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .status-good { background: #0f0; box-shadow: 0 0 10px #0f0; }
+        .status-warning { background: #ff0; box-shadow: 0 0 10px #ff0; }
+        .status-error { background: #f00; box-shadow: 0 0 10px #f00; }
+
+        /* Add advanced security settings */
+        .security-settings {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .security-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .security-level {
+            display: flex;
+            align-items: center;
+        }
+
+        .level-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        /* Add proxy blacklist */
+        .proxy-blacklist {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .blacklist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .blacklist-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Add proxy whitelist */
+        .proxy-whitelist {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .whitelist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* Add proxy rules */
+        .proxy-rules {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .rule-pattern {
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        /* Add proxy logs */
+        .proxy-logs {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            padding: 10px;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+            font-family: monospace;
+        }
+
+        .log-time {
+            color: rgba(0, 255, 0, 0.7);
+            margin-right: 10px;
+        }
+
+        .log-level {
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+
+        .level-info { background: rgba(0, 255, 0, 0.2); }
+        .level-warning { background: rgba(255, 255, 0, 0.2); }
+        .level-error { background: rgba(255, 0, 0, 0.2); }
+
+        /* Add proxy cache */
+        .proxy-cache {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .cache-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cache-item {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* Add proxy compression */
+        .proxy-compression {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .compression-level {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .compression-slider {
+            flex: 1;
+            margin: 0 15px;
+        }
+
+        /* Add proxy authentication */
+        .proxy-auth {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .auth-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .auth-input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        /* Add proxy SSL settings */
+        .proxy-ssl {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .ssl-cert {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+
+        /* Add proxy headers */
+        .proxy-headers {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .header-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .header-name {
+            width: 150px;
+            margin-right: 10px;
+        }
+
+        .header-value {
+            flex: 1;
+        }
+
+        /* Add cloaking methods dropdown */
+        .cloaking-methods {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .method-selector {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .method-option {
+            background: rgba(0, 20, 0, 0.9);
+            color: #0f0;
+            padding: 10px;
+        }
+
+        .method-option:hover {
+            background: rgba(0, 40, 0, 0.9);
+        }
+
+        .method-description {
+            color: rgba(0, 255, 0, 0.7);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .method-advanced {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .method-params {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .param-input {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .param-label {
+            color: #0f0;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .method-preview {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #0f0;
+            background: #000;
+            margin-top: 10px;
+        }
+
+        .method-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-button {
+            padding: 10px 20px;
+            background: rgba(0, 40, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-button:hover {
+            background: rgba(0, 60, 0, 0.9);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .method-category {
+            color: #0f0;
+            font-weight: bold;
+            margin: 15px 0 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .cloaking-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .cloaking-option-group {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .cloaking-option-group h4 {
+            color: #0f0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .input-group {
+            margin: 10px 0;
+        }
+
+        .input-group label {
+            display: block;
+            color: #0f0;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+        }
+
+        .cloaking-presets {
+            margin-top: 20px;
+        }
+
+        .preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .preset-btn {
+            padding: 10px;
+            background: rgba(0, 40, 0, 0.8);
+            border: 1px solid #0f0;
+            color: #0f0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .preset-btn:hover {
+            background: rgba(0, 60, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .preset-btn::before {
+            content: "";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .preset-btn[data-preset="google"]::before { background-image: url('https://www.google.com/favicon.ico'); }
+        .preset-btn[data-preset="youtube"]::before { background-image: url('https://www.youtube.com/favicon.ico'); }
+        .preset-btn[data-preset="docs"]::before { background-image: url('https://docs.google.com/favicon.ico'); }
+        .preset-btn[data-preset="classroom"]::before { background-image: url('https://classroom.google.com/favicon.ico'); }
+        .preset-btn[data-preset="canvas"]::before { background-image: url('https://www.canvas.net/favicon.ico'); }
+        .preset-btn[data-preset="khan"]::before { background-image: url('https://www.khanacademy.org/favicon.ico'); }
+        .preset-btn[data-preset="edpuzzle"]::before { background-image: url('https://edpuzzle.com/favicon.ico'); }
+        .preset-btn[data-preset="quizlet"]::before { background-image: url('https://quizlet.com/favicon.ico'); }
+        .preset-btn[data-preset="nearpod"]::before { background-image: url('https://nearpod.com/favicon.ico'); }
+        .preset-btn[data-preset="pearson"]::before { background-image: url('https://www.pearson.com/favicon.ico'); }
+        .preset-btn[data-preset="mcgraw"]::before { background-image: url('https://www.mheducation.com/favicon.ico'); }
+        .preset-btn[data-preset="schoology"]::before { background-image: url('https://www.schoology.com/favicon.ico'); }
+        .preset-btn[data-preset="blackboard"]::before { background-image: url('https://www.blackboard.com/favicon.ico'); }
+        .preset-btn[data-preset="moodle"]::before { background-image: url('https://moodle.org/favicon.ico'); }
+        .preset-btn[data-preset="edmodo"]::before { background-image: url('https://www.edmodo.com/favicon.ico'); }
+        .preset-btn[data-preset="seesaw"]::before { background-image: url('https://web.seesaw.me/favicon.ico'); }
+        .preset-btn[data-preset="flipgrid"]::before { background-image: url('https://flipgrid.com/favicon.ico'); }
+        .preset-btn[data-preset="padlet"]::before { background-image: url('https://padlet.com/favicon.ico'); }
+        .preset-btn[data-preset="wakelet"]::before { background-image: url('https://wakelet.com/favicon.ico'); }
+        .preset-btn[data-preset="peardeck"]::before { background-image: url('https://www.peardeck.com/favicon.ico'); }
     </style>
 </head>
 <body>
@@ -941,7 +1736,7 @@
             <div class="main-tab active" data-tab="browser">Browser</div>
             <div class="main-tab" data-tab="settings">Settings</div>
             <div class="main-tab" data-tab="cloaking">Cloaking</div>
-            <div class="main-tab" data-tab="advanced-cloaking">Advanced Cloak</div>
+            <div class="main-tab" data-tab="about-blank">About Blank</div>
             <div class="main-tab" data-tab="about">About</div>
         </div>
 
@@ -951,6 +1746,7 @@
                 <div class="input-group">
                     <input type="text" id="url-input" placeholder="Enter URL to browse securely... (e.g., https://example.com)">
                     <button id="navigate-btn">Navigate</button>
+                    <button id="new-tab-btn">Open in New Tab</button>
                 </div>
                 
                 <div class="proxy-selector">
@@ -1007,20 +1803,8 @@
         <!-- Cloaking Tab Content -->
         <div class="main-tab-content" id="cloaking-tab">
             <div class="glass-panel">
-                <div class="cloak-grid">
-                    <div class="cloak-item" data-title="Google" data-favicon="https://www.google.com/favicon.ico" data-url="https://www.google.com">
-                        <h4><img src="https://www.google.com/favicon.ico" class="favicon-preview">Google</h4>
-                        <p>Make this tab appear as Google Search</p>
-                    </div>
-                    <div class="cloak-item" data-title="Google Docs" data-favicon="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico" data-url="https://docs.google.com">
-                        <h4><img src="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico" class="favicon-preview">Google Docs</h4>
-                        <p>Make this tab appear as Google Docs</p>
-                    </div>
-                    <div class="cloak-item" data-title="Canvas" data-favicon="https://www.canvas.net/favicon.ico" data-url="https://canvas.instructure.com">
-                        <h4><img src="https://www.canvas.net/favicon.ico" class="favicon-preview">Canvas LMS</h4>
-                        <p>Make this tab appear as Canvas learning system</p>
-                    </div>
-                </div>
+                <h3>Tab Cloak</h3>
+                <button onclick="setTab('Canvas LMS', 'https://sso.canvaslms.com/login/canvas/favicon.ico')" class="btn">Canvas LMS</button>
             </div>
         </div>
 
@@ -1058,6 +1842,33 @@
                             <label for="cloak-useragent">User-Agent Modification</label>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Blank Tab Content -->
+        <div class="main-tab-content" id="about-blank-tab">
+            <div class="glass-panel">
+                <h3>About Blank Cloaking</h3>
+                <div class="input-group">
+                    <label for="ab-target-url">Target URL:</label>
+                    <input type="text" id="ab-target-url" placeholder="Enter URL to cloak...">
+                </div>
+                <div class="input-group">
+                    <label for="ab-title">Display Title:</label>
+                    <input type="text" id="ab-title" placeholder="Enter display title...">
+                </div>
+                <div class="input-group">
+                    <label for="ab-favicon">Favicon URL:</label>
+                    <input type="text" id="ab-favicon" placeholder="Enter favicon URL...">
+                </div>
+                <div class="input-group">
+                    <label for="ab-display-url">Display URL:</label>
+                    <input type="text" id="ab-display-url" placeholder="Enter display URL...">
+                </div>
+                <div class="button-group">
+                    <button id="ab-preview" class="btn">Preview</button>
+                    <button id="ab-apply" class="btn">Open in New Tab</button>
                 </div>
             </div>
         </div>
@@ -1119,11 +1930,18 @@
     <script src="https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet/dist/uv.config.js"></script>
     
     <script>
-        // Add proxy servers list
+        // Update proxy servers list
         const proxyServers = [
-            { ip: '47.88.59.79', port: '82', type: 'http', country: 'US', speed: '303ms', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now' },
-            { ip: '43.135.186.62', port: '13001', type: 'http', country: 'US', speed: '5.1s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '92%', lastChecked: 'Just now' },
-            { ip: '68.188.93.171', port: '8080', type: 'http', country: 'US', speed: '242ms', protocol: 'HTTP (Transparent)', location: 'United States', reliability: '100%', lastChecked: 'Just now' }
+            { ip: '23.82.137.159', port: '80', type: 'http', country: 'US', speed: '5.2s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Leaseweb USA, Inc' },
+            { ip: '115.106.173.107', port: '13001', type: 'http', country: 'US', speed: '5.0s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'AS132203' },
+            { ip: '43.153.21.13', port: '13001', type: 'http', country: 'US', speed: '6.8s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Tencent Cloud Computing' },
+            { ip: '159.65.230.46', port: '8888', type: 'http', country: 'US', speed: '5.6s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'DigitalOcean, LLC' },
+            { ip: '65.49.2.199', port: '3128', type: 'http', country: 'US', speed: '6.5s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Dynamic Internet Technology Inc' },
+            { ip: '43.135.147.75', port: '13001', type: 'http', country: 'US', speed: '8.1s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '93%', lastChecked: 'Just now', provider: 'Tencent Cloud Computing' },
+            { ip: '24.144.115.60', port: '8888', type: 'http', country: 'US', speed: '9.4s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'DigitalOcean, LLC' },
+            { ip: '43.130.61.237', port: '13001', type: 'http', country: 'US', speed: '10.9s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Tencent Cloud Computing' },
+            { ip: '154.16.146.41', port: '80', type: 'http', country: 'US', speed: '13.4s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '81%', lastChecked: 'Just now', provider: 'OC1-HostForWeb, LLC' },
+            { ip: '43.153.23.242', port: '13001', type: 'http', country: 'US', speed: '12.2s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Tencent Cloud Computing' }
         ];
 
         // Initialize UV configuration
@@ -1181,13 +1999,125 @@
             });
         }
 
+        // Add proxy filtering and sorting functionality
         function initializeProxyList() {
             const proxyList = document.getElementById('proxy-list');
             if (!proxyList) return;
 
+            // Add filter controls
+            const filterControls = document.createElement('div');
+            filterControls.className = 'proxy-filters';
+            filterControls.innerHTML = `
+                <div class="filter-group">
+                    <input type="text" id="proxy-search" placeholder="Search proxies..." class="proxy-search">
+                    <select id="proxy-sort" class="proxy-sort">
+                        <option value="speed">Sort by Speed</option>
+                        <option value="reliability">Sort by Reliability</option>
+                        <option value="provider">Sort by Provider</option>
+                    </select>
+                </div>
+            `;
+            proxyList.parentNode.insertBefore(filterControls, proxyList);
+
+            // Add styles for filters
+            const style = document.createElement('style');
+            style.textContent = `
+                .proxy-filters {
+                    margin-bottom: 15px;
+                    display: flex;
+                    gap: 10px;
+                }
+                .proxy-search {
+                    flex: 1;
+                    padding: 8px;
+                    background: rgba(0, 20, 0, 0.7);
+                    border: 1px solid #0f0;
+                    color: #0f0;
+                    border-radius: 4px;
+                }
+                .proxy-sort {
+                    padding: 8px;
+                    background: rgba(0, 20, 0, 0.7);
+                    border: 1px solid #0f0;
+                    color: #0f0;
+                    border-radius: 4px;
+                }
+                .proxy-item {
+                    background: rgba(0, 30, 0, 0.5);
+                    border: 1px solid rgba(0, 255, 0, 0.2);
+                    border-radius: 4px;
+                    padding: 10px;
+                    margin-bottom: 8px;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+                .proxy-item:hover {
+                    background: rgba(0, 40, 0, 0.7);
+                    border-color: #0f0;
+                    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+                }
+                .proxy-item.active {
+                    background: rgba(0, 50, 0, 0.8);
+                    border: 1px solid #0f0;
+                    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+                }
+                .proxy-details {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    font-size: 0.9em;
+                    color: rgba(0, 255, 0, 0.7);
+                }
+                .proxy-stats {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    font-size: 0.9em;
+                }
+                .reliability-perfect { color: #00ff00; }
+                .reliability-good { color: #aaff00; }
+                .reliability-medium { color: #ffff00; }
+                .reliability-poor { color: #ff6600; }
+            `;
+            document.head.appendChild(style);
+
+            // Add event listeners for filtering
+            document.getElementById('proxy-search').addEventListener('input', updateProxyList);
+            document.getElementById('proxy-sort').addEventListener('change', updateProxyList);
+
+            // Initial render
+            updateProxyList();
+        }
+
+        function updateProxyList() {
+            const proxyList = document.getElementById('proxy-list');
+            const searchTerm = document.getElementById('proxy-search').value.toLowerCase();
+            const sortBy = document.getElementById('proxy-sort').value;
+
+            // Filter and sort proxies
+            let filteredProxies = proxyServers.filter(proxy => 
+                proxy.ip.toLowerCase().includes(searchTerm) ||
+                proxy.provider.toLowerCase().includes(searchTerm) ||
+                proxy.location.toLowerCase().includes(searchTerm)
+            );
+
+            // Sort proxies
+            filteredProxies.sort((a, b) => {
+                switch(sortBy) {
+                    case 'speed':
+                        return parseFloat(a.speed) - parseFloat(b.speed);
+                    case 'reliability':
+                        return parseFloat(b.reliability) - parseFloat(a.reliability);
+                    case 'provider':
+                        return a.provider.localeCompare(b.provider);
+                    default:
+                        return 0;
+                }
+            });
+
+            // Render proxies
             proxyList.innerHTML = '';
-            
-            proxyServers.forEach((proxy, index) => {
+            filteredProxies.forEach((proxy, index) => {
                 const proxyItem = document.createElement('div');
                 proxyItem.className = 'proxy-item';
                 proxyItem.dataset.index = index;
@@ -1208,7 +2138,7 @@
                         <span class="reliability ${getReliabilityClass(proxy.reliability)}">
                             ${proxy.reliability}
                         </span>
-                        <span class="last-checked">${proxy.lastChecked}</span>
+                        <span class="provider">${proxy.provider}</span>
                     </div>
                 `;
                 
@@ -1261,117 +2191,143 @@
                 return;
             }
             
-            // Show browser container
-            const browserContainer = document.getElementById('browser-container');
-            if (browserContainer) {
-                browserContainer.style.display = 'flex';
-                document.querySelector('.container').style.display = 'none';
-                
-                // Update address bar
-                const browserAddressBar = document.getElementById('browser-address-bar');
-                if (browserAddressBar) browserAddressBar.value = url;
-                
-                // Show loading indicator
-                const loadingIndicator = document.getElementById('loading-indicator');
-                if (loadingIndicator) loadingIndicator.style.display = 'flex';
-                
-                // Get selected proxy type
-                const proxyType = document.getElementById('proxyType').value;
-                const proxyServer = document.getElementById('proxyServer').value;
-                
-                // Construct proxy URL based on selected proxy server
-                let proxyUrl;
-                switch (proxyServer) {
-                    case 'uv':
-                        proxyUrl = `/uv/${url}`;
-                        break;
-                    case 'dynamic':
-                        proxyUrl = `/dynamic/${url}`;
-                        break;
-                    case 'rammerhead':
-                        proxyUrl = `/rammerhead/${url}`;
-                        break;
-                    default:
-                        proxyUrl = `/uv/${url}`;
-                }
-                
-                // Create iframe for proxy content
-                const browserContent = document.getElementById('browser-content');
-                if (browserContent) {
-                    browserContent.innerHTML = '';
-                    const iframe = document.createElement('iframe');
-                    iframe.src = proxyUrl;
-                    iframe.style.width = '100%';
-                    iframe.style.height = '100%';
-                    iframe.style.border = 'none';
-                    iframe.style.background = '#000';
-                    
-                    // Apply security settings
-                    const blockScripts = document.getElementById('blockScripts').checked;
-                    const blockFingerprint = document.getElementById('blockFingerprint').checked;
-                    const blockCookies = document.getElementById('blockCookies').checked;
-                    
-                    if (blockScripts) {
-                        iframe.sandbox = 'allow-same-origin allow-forms allow-popups allow-modals';
-                    }
-                    
-                    if (blockFingerprint) {
-                        iframe.setAttribute('data-fingerprint-protection', 'true');
-                    }
-                    
-                    if (blockCookies) {
-                        iframe.setAttribute('data-cookie-protection', 'true');
-                    }
-                    
-                    // Add cloaking if enabled
-                    const cloakTitle = document.getElementById('cloak-title').checked;
-                    const cloakFavicon = document.getElementById('cloak-favicon').checked;
-                    const cloakUrlBar = document.getElementById('cloak-url-bar').checked;
-                    
-                    if (cloakTitle || cloakFavicon || cloakUrlBar) {
-                        const activeCloak = document.querySelector('.cloak-item.active');
-                        if (activeCloak) {
-                            const title = activeCloak.getAttribute('data-title');
-                            const favicon = activeCloak.getAttribute('data-favicon');
-                            const displayUrl = activeCloak.getAttribute('data-url');
-                            
-                            if (cloakTitle && title) {
-                                document.title = title;
-                            }
-                            
-                            if (cloakFavicon && favicon) {
-                                let faviconLink = document.querySelector("link[rel*='icon']") || document.createElement('link');
-                                faviconLink.type = 'image/x-icon';
-                                faviconLink.rel = 'shortcut icon';
-                                faviconLink.href = favicon;
-                                document.getElementsByTagName('head')[0].appendChild(faviconLink);
-                            }
-                            
-                            if (cloakUrlBar && displayUrl && window.history && window.history.pushState) {
-                                window.history.pushState({}, title || document.title, displayUrl);
-                            }
+            // Get selected proxy type
+            const proxyType = document.getElementById('proxyType').value;
+            const proxyServer = document.getElementById('proxyServer').value;
+            
+            // Construct proxy URL based on selected proxy server
+            let proxyUrl;
+            switch (proxyServer) {
+                case 'uv':
+                    proxyUrl = `/uv/${url}`;
+                    break;
+                case 'dynamic':
+                    proxyUrl = `/dynamic/${url}`;
+                    break;
+                case 'rammerhead':
+                    proxyUrl = `/rammerhead/${url}`;
+                    break;
+                default:
+                    proxyUrl = `/uv/${url}`;
+            }
+            
+            // Create a new window with specific features
+            const newWindow = window.open('', '_blank', 'width=1024,height=768,menubar=no,toolbar=no,location=no,status=no');
+            
+            if (!newWindow) {
+                alert('Please allow popups for this site to open in a new tab');
+                return;
+            }
+            
+            // Write basic HTML structure to the new window
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Loading...</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            background: #000;
+                            color: #0f0;
+                            font-family: 'Courier New', monospace;
                         }
+                        iframe {
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                        }
+                        .error-container {
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background: rgba(0, 20, 0, 0.7);
+                            border: 1px solid #0f0;
+                            padding: 20px;
+                            text-align: center;
+                            color: #0f0;
+                        }
+                        .close-btn {
+                            background: #0f0;
+                            color: #000;
+                            border: none;
+                            padding: 5px 10px;
+                            margin-top: 10px;
+                            cursor: pointer;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe id="proxy-frame" src="${proxyUrl}"></iframe>
+                </body>
+                </html>
+            `);
+            
+            // Get the iframe element
+            const iframe = newWindow.document.getElementById('proxy-frame');
+            
+            // Apply security settings
+            const blockScripts = document.getElementById('blockScripts').checked;
+            const blockFingerprint = document.getElementById('blockFingerprint').checked;
+            const blockCookies = document.getElementById('blockCookies').checked;
+            
+            if (blockScripts) {
+                iframe.sandbox = 'allow-same-origin allow-forms allow-popups allow-modals';
+            }
+            
+            if (blockFingerprint) {
+                iframe.setAttribute('data-fingerprint-protection', 'true');
+            }
+            
+            if (blockCookies) {
+                iframe.setAttribute('data-cookie-protection', 'true');
+            }
+            
+            // Add cloaking if enabled
+            const cloakTitle = document.getElementById('cloak-title').checked;
+            const cloakFavicon = document.getElementById('cloak-favicon').checked;
+            const cloakUrlBar = document.getElementById('cloak-url-bar').checked;
+            
+            if (cloakTitle || cloakFavicon || cloakUrlBar) {
+                const activeCloak = document.querySelector('.cloak-item.active');
+                if (activeCloak) {
+                    const title = activeCloak.getAttribute('data-title');
+                    const favicon = activeCloak.getAttribute('data-favicon');
+                    const displayUrl = activeCloak.getAttribute('data-url');
+                    
+                    if (cloakTitle && title) {
+                        newWindow.document.title = title;
                     }
                     
-                    browserContent.appendChild(iframe);
+                    if (cloakFavicon && favicon) {
+                        let faviconLink = newWindow.document.createElement('link');
+                        faviconLink.type = 'image/x-icon';
+                        faviconLink.rel = 'shortcut icon';
+                        faviconLink.href = favicon;
+                        newWindow.document.head.appendChild(faviconLink);
+                    }
                     
-                    // Hide loading indicator when iframe loads
-                    iframe.onload = function() {
-                        if (loadingIndicator) loadingIndicator.style.display = 'none';
-                    };
-                    
-                    // Handle iframe errors
-                    iframe.onerror = function() {
-                        if (loadingIndicator) loadingIndicator.style.display = 'none';
-                        const errorContainer = document.getElementById('uv-error');
-                        const errorMessage = document.getElementById('uv-error-message');
-                        if (errorContainer && errorMessage) {
-                            errorMessage.textContent = 'Failed to load the page. The proxy server might be unavailable or blocked.';
-                            errorContainer.style.display = 'block';
-                        }
-                    };
+                    if (cloakUrlBar && displayUrl) {
+                        newWindow.history.pushState({}, title || newWindow.document.title, displayUrl);
+                    }
                 }
             }
+            
+            // Handle iframe errors
+            iframe.onerror = function() {
+                newWindow.document.body.innerHTML = `
+                    <div class="error-container">
+                        <h2>Error</h2>
+                        <p>Failed to load the page. The proxy server might be unavailable or blocked.</p>
+                        <button class="close-btn" onclick="window.close()">Close Tab</button>
+                    </div>
+                `;
+            };
         }
 
         function getActiveProxy() {
@@ -1574,6 +2530,801 @@
             // Reinitialize proxy list
             initializeProxyList();
         });
+
+        // Add cloaking method descriptions
+        const methodDescriptions = {
+            'about-blank': 'Opens the target URL in an about:blank frame with custom title and favicon.',
+            'data-url': 'Encodes the target URL as a data URL for stealthy loading.',
+            'iframe': 'Loads the target URL in a hidden iframe with custom styling.',
+            'meta-refresh': 'Uses meta refresh to redirect to the target URL after a delay.',
+            'window-open': 'Opens the target URL in a new window with custom properties.',
+            'javascript': 'Uses JavaScript to dynamically load and cloak the target URL.',
+            'html5': 'Utilizes HTML5 features for advanced cloaking techniques.',
+            'svg': 'Embeds the target URL within an SVG for visual cloaking.',
+            'canvas': 'Renders the target URL content on a canvas element.',
+            'webgl': 'Uses WebGL to render and cloak the target URL content.',
+            '301': 'Permanent redirect cloaking using 301 status code.',
+            '302': 'Temporary redirect cloaking using 302 status code.',
+            '307': 'Temporary redirect cloaking using 307 status code.',
+            'meta': 'Meta tag based redirect cloaking.',
+            'js-redirect': 'JavaScript based redirect cloaking.',
+            'frame-busting': 'Prevents frame busting while maintaining cloaking.',
+            'frame-hiding': 'Hides the frame while maintaining functionality.',
+            'frame-overlay': 'Adds an overlay to the frame for additional cloaking.',
+            'frame-transparent': 'Makes the frame transparent while maintaining content.',
+            'frame-custom': 'Custom frame configuration for advanced cloaking.',
+            'text-replace': 'Replaces specific text content for cloaking.',
+            'image-replace': 'Replaces images with cloaked versions.',
+            'style-inject': 'Injects custom styles for cloaking.',
+            'script-inject': 'Injects custom scripts for cloaking.',
+            'content-filter': 'Filters and modifies content for cloaking.',
+            'subdomain': 'Uses subdomain cloaking techniques.',
+            'path': 'Uses path-based cloaking techniques.',
+            'query': 'Uses query string cloaking techniques.',
+            'hash': 'Uses hash-based cloaking techniques.',
+            'domain-mask': 'Masks the domain while maintaining functionality.',
+            'user-agent': 'Modifies user agent for cloaking.',
+            'screen-size': 'Modifies screen size reporting for cloaking.',
+            'timezone': 'Modifies timezone reporting for cloaking.',
+            'language': 'Modifies language reporting for cloaking.',
+            'plugins': 'Modifies plugin reporting for cloaking.',
+            'websocket': 'Uses WebSocket for real-time cloaking.',
+            'service-worker': 'Uses Service Worker for advanced cloaking.',
+            'web-worker': 'Uses Web Worker for background cloaking.',
+            'shared-worker': 'Uses Shared Worker for multi-tab cloaking.',
+            'indexeddb': 'Uses IndexedDB for storage-based cloaking.',
+            'popup': 'Opens a new window with custom properties for cloaking.',
+            'tab-cloak': 'Creates a new tab with custom styling for cloaking.',
+            'history-cloak': 'Modifies browser history for cloaking.',
+            'bookmark-cloak': 'Modifies bookmarks for cloaking.',
+            'download-cloak': 'Modifies download links for cloaking.',
+            'dom-manipulation': 'Manipulates DOM elements for cloaking.',
+            'element-cloak': 'Cloaks specific elements on the page.',
+            'attribute-cloak': 'Cloaks specific attributes on elements.',
+            'class-cloak': 'Cloaks specific classes on elements.',
+            'id-cloak': 'Cloaks specific IDs on elements.',
+            'dns-cloak': 'Cloaks DNS queries for cloaking.',
+            'ip-cloak': 'Cloaks IP addresses for cloaking.',
+            'port-cloak': 'Cloaks port numbers for cloaking.',
+            'protocol-cloak': 'Cloaks protocol names for cloaking.',
+            'host-cloak': 'Cloaks host names for cloaking.',
+            'canvas-fp': 'Cloaks canvas fingerprint for cloaking.',
+            'webgl-fp': 'Cloaks WebGL fingerprint for cloaking.',
+            'audio-fp': 'Cloaks audio fingerprint for cloaking.',
+            'battery-fp': 'Cloaks battery fingerprint for cloaking.',
+            'csp-cloak': 'Cloaks CSP headers for cloaking.',
+            'xss-cloak': 'Cloaks XSS vulnerabilities for cloaking.',
+            'csrf-cloak': 'Cloaks CSRF tokens for cloaking.',
+            'clickjacking-cloak': 'Cloaks clickjacking vulnerabilities for cloaking.',
+            'mitm-cloak': 'Cloaks MITM attacks for cloaking.',
+            'ssl-cloak': 'Cloaks SSL/TLS vulnerabilities for cloaking.',
+            'tls-cloak': 'Cloaks TLS vulnerabilities for cloaking.',
+            'cert-cloak': 'Cloaks SSL certificates for cloaking.',
+            'key-cloak': 'Cloaks SSL keys for cloaking.',
+            'token-cloak': 'Cloaks authentication tokens for cloaking.',
+            'dns-cloak': 'Cloaks DNS queries for cloaking.',
+            'ip-cloak': 'Cloaks IP addresses for cloaking.',
+            'port-cloak': 'Cloaks port numbers for cloaking.',
+            'protocol-cloak': 'Cloaks protocol names for cloaking.',
+            'host-cloak': 'Cloaks host names for cloaking.',
+            'referrer-cloak': 'Cloaks HTTP referrer for cloaking.',
+            'local-storage': 'Cloaks local storage for cloaking.',
+            'session-storage': 'Cloaks session storage for cloaking.',
+            'cache-storage': 'Cloaks cache storage for cloaking.',
+            'cookie-cloak': 'Cloaks cookies for cloaking.',
+            'storage-cloak': 'Cloaks storage for cloaking.'
+        };
+
+        // Update description when method is selected
+        document.getElementById('cloaking-method').addEventListener('change', function() {
+            const method = this.value;
+            document.getElementById('method-description').textContent = methodDescriptions[method] || 'No description available.';
+        });
+
+        // Handle preview button
+        document.getElementById('preview-cloak').addEventListener('click', function() {
+            const method = document.getElementById('cloaking-method').value;
+            const targetUrl = document.getElementById('target-url').value;
+            const displayUrl = document.getElementById('display-url').value;
+            const title = document.getElementById('cloak-title').value;
+            const favicon = document.getElementById('favicon-url').value;
+            
+            // Generate preview based on selected method
+            const previewFrame = document.getElementById('preview-frame');
+            previewFrame.innerHTML = generatePreview(method, targetUrl, displayUrl, title, favicon);
+        });
+
+        // Handle apply button
+        document.getElementById('apply-cloak').addEventListener('click', function() {
+            const method = document.getElementById('cloaking-method').value;
+            const targetUrl = document.getElementById('target-url').value;
+            const displayUrl = document.getElementById('display-url').value;
+            const title = document.getElementById('cloak-title').value;
+            const favicon = document.getElementById('favicon-url').value;
+            
+            // Apply cloaking based on selected method
+            applyCloaking(method, targetUrl, displayUrl, title, favicon);
+        });
+
+        // Handle save preset button
+        document.getElementById('save-cloak').addEventListener('click', function() {
+            const method = document.getElementById('cloaking-method').value;
+            const targetUrl = document.getElementById('target-url').value;
+            const displayUrl = document.getElementById('display-url').value;
+            const title = document.getElementById('cloak-title').value;
+            const favicon = document.getElementById('favicon-url').value;
+            
+            // Save cloaking preset
+            saveCloakingPreset(method, targetUrl, displayUrl, title, favicon);
+        });
+
+        // Helper functions
+        function generatePreview(method, targetUrl, displayUrl, title, favicon) {
+            // Generate preview HTML based on method
+            // This is a simplified example
+            return `
+                <div style="color: #0f0; padding: 20px;">
+                    <h3>${title || 'Preview'}</h3>
+                    <p>Method: ${method}</p>
+                    <p>Target URL: ${targetUrl}</p>
+                    <p>Display URL: ${displayUrl}</p>
+                    <p>Favicon: ${favicon}</p>
+                </div>
+            `;
+        }
+
+        function applyCloaking(method, targetUrl, displayUrl, title, favicon) {
+            // Apply cloaking based on method
+            // This is a simplified example
+            switch(method) {
+                case 'about-blank':
+                    // Implement about:blank cloaking
+                    break;
+                case 'data-url':
+                    // Implement data URL cloaking
+                    break;
+                // Add more cases for other methods
+            }
+        }
+
+        function saveCloakingPreset(method, targetUrl, displayUrl, title, favicon) {
+            // Save cloaking preset
+            // This is a simplified example
+            const preset = {
+                method,
+                targetUrl,
+                displayUrl,
+                title,
+                favicon,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Save to localStorage or send to server
+            console.log('Saving preset:', preset);
+        }
+
+        // Add new tab button functionality
+        document.getElementById('new-tab-btn').addEventListener('click', function() {
+            const url = document.getElementById('url-input').value.trim();
+            if (url) {
+                navigateToUrl(url);
+            } else {
+                alert('Please enter a URL');
+            }
+        });
+
+        // Update existing navigate button to open in current window
+        document.getElementById('navigate-btn').addEventListener('click', function() {
+            const url = document.getElementById('url-input').value.trim();
+            if (url) {
+                // Format URL if needed
+                let formattedUrl = url;
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    formattedUrl = 'https://' + url;
+                }
+                
+                // Get selected proxy server
+                const proxyServer = document.getElementById('proxyServer').value;
+                let proxyUrl;
+                switch (proxyServer) {
+                    case 'uv':
+                        proxyUrl = `/uv/${formattedUrl}`;
+                        break;
+                    case 'dynamic':
+                        proxyUrl = `/dynamic/${formattedUrl}`;
+                        break;
+                    case 'rammerhead':
+                        proxyUrl = `/rammerhead/${formattedUrl}`;
+                        break;
+                    default:
+                        proxyUrl = `/uv/${formattedUrl}`;
+                }
+                
+                // Open in current window
+                window.location.href = proxyUrl;
+            } else {
+                alert('Please enter a URL');
+            }
+        });
+
+        // Add new tab cloaking functionality
+        function initializeNewTabCloaking() {
+            const presetButtons = document.querySelectorAll('.preset-btn');
+            const cloakingOptions = {
+                google: {
+                    title: 'Google',
+                    favicon: 'https://www.google.com/favicon.ico',
+                    displayUrl: 'https://www.google.com'
+                },
+                youtube: {
+                    title: 'YouTube',
+                    favicon: 'https://www.youtube.com/favicon.ico',
+                    displayUrl: 'https://www.youtube.com'
+                },
+                docs: {
+                    title: 'Google Docs',
+                    favicon: 'https://docs.google.com/favicon.ico',
+                    displayUrl: 'https://docs.google.com'
+                },
+                classroom: {
+                    title: 'Google Classroom',
+                    favicon: 'https://classroom.google.com/favicon.ico',
+                    displayUrl: 'https://classroom.google.com'
+                },
+                canvas: {
+                    title: 'Canvas',
+                    favicon: 'https://www.canvas.net/favicon.ico',
+                    displayUrl: 'https://www.canvas.net'
+                },
+                khan: {
+                    title: 'Khan Academy',
+                    favicon: 'https://www.khanacademy.org/favicon.ico',
+                    displayUrl: 'https://www.khanacademy.org'
+                },
+                edpuzzle: {
+                    title: 'Edpuzzle',
+                    favicon: 'https://edpuzzle.com/favicon.ico',
+                    displayUrl: 'https://edpuzzle.com'
+                },
+                quizlet: {
+                    title: 'Quizlet',
+                    favicon: 'https://quizlet.com/favicon.ico',
+                    displayUrl: 'https://quizlet.com'
+                },
+                nearpod: {
+                    title: 'Nearpod',
+                    favicon: 'https://nearpod.com/favicon.ico',
+                    displayUrl: 'https://nearpod.com'
+                },
+                pearson: {
+                    title: 'Pearson',
+                    favicon: 'https://www.pearson.com/favicon.ico',
+                    displayUrl: 'https://www.pearson.com'
+                },
+                mcgraw: {
+                    title: 'McGraw Hill',
+                    favicon: 'https://www.mheducation.com/favicon.ico',
+                    displayUrl: 'https://www.mheducation.com'
+                },
+                schoology: {
+                    title: 'Schoology',
+                    favicon: 'https://www.schoology.com/favicon.ico',
+                    displayUrl: 'https://www.schoology.com'
+                },
+                blackboard: {
+                    title: 'Blackboard',
+                    favicon: 'https://www.blackboard.com/favicon.ico',
+                    displayUrl: 'https://www.blackboard.com'
+                },
+                moodle: {
+                    title: 'Moodle',
+                    favicon: 'https://moodle.org/favicon.ico',
+                    displayUrl: 'https://moodle.org'
+                },
+                edmodo: {
+                    title: 'Edmodo',
+                    favicon: 'https://www.edmodo.com/favicon.ico',
+                    displayUrl: 'https://www.edmodo.com'
+                },
+                seesaw: {
+                    title: 'Seesaw',
+                    favicon: 'https://web.seesaw.me/favicon.ico',
+                    displayUrl: 'https://web.seesaw.me'
+                },
+                flipgrid: {
+                    title: 'Flipgrid',
+                    favicon: 'https://flipgrid.com/favicon.ico',
+                    displayUrl: 'https://flipgrid.com'
+                },
+                padlet: {
+                    title: 'Padlet',
+                    favicon: 'https://padlet.com/favicon.ico',
+                    displayUrl: 'https://padlet.com'
+                },
+                wakelet: {
+                    title: 'Wakelet',
+                    favicon: 'https://wakelet.com/favicon.ico',
+                    displayUrl: 'https://wakelet.com'
+                },
+                peardeck: {
+                    title: 'Pear Deck',
+                    favicon: 'https://www.peardeck.com/favicon.ico',
+                    displayUrl: 'https://www.peardeck.com'
+                }
+            };
+
+            presetButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const preset = this.dataset.preset;
+                    const options = cloakingOptions[preset];
+                    
+                    document.getElementById('new-tab-title').value = options.title;
+                    document.getElementById('new-tab-favicon').value = options.favicon;
+                    document.getElementById('new-tab-display-url').value = options.displayUrl;
+                });
+            });
+        }
+
+        // Update the navigateToUrl function to handle new tab cloaking
+        function navigateToUrl(url) {
+            if (!url) return;
+            
+            // Format URL if needed
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            
+            // Get active proxy
+            const activeProxy = getActiveProxy();
+            if (!activeProxy) {
+                alert('Please select a proxy server first');
+                return;
+            }
+            
+            // Get selected proxy type
+            const proxyType = document.getElementById('proxyType').value;
+            const proxyServer = document.getElementById('proxyServer').value;
+            
+            // Construct proxy URL based on selected proxy server
+            let proxyUrl;
+            switch (proxyServer) {
+                case 'uv':
+                    proxyUrl = `/uv/${url}`;
+                    break;
+                case 'dynamic':
+                    proxyUrl = `/dynamic/${url}`;
+                    break;
+                case 'rammerhead':
+                    proxyUrl = `/rammerhead/${url}`;
+                    break;
+                default:
+                    proxyUrl = `/uv/${url}`;
+            }
+            
+            // Create a new window with specific features
+            const newWindow = window.open('', '_blank', 'width=1024,height=768,menubar=no,toolbar=no,location=no,status=no');
+            
+            if (!newWindow) {
+                alert('Please allow popups for this site to open in a new tab');
+                return;
+            }
+            
+            // Get cloaking options
+            const cloakTitle = document.getElementById('cloak-new-tab-title').checked;
+            const cloakFavicon = document.getElementById('cloak-new-tab-favicon').checked;
+            const cloakUrlBar = document.getElementById('cloak-new-tab-url').checked;
+            const cloakHistory = document.getElementById('cloak-new-tab-history').checked;
+            
+            const customTitle = document.getElementById('new-tab-title').value;
+            const customFavicon = document.getElementById('new-tab-favicon').value;
+            const displayUrl = document.getElementById('new-tab-display-url').value;
+            
+            // Write basic HTML structure to the new window with cloaking
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${cloakTitle ? customTitle : 'Loading...'}</title>
+                    ${cloakFavicon ? `<link rel="icon" type="image/x-icon" href="${customFavicon}">` : ''}
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            background: #000;
+                            color: #0f0;
+                            font-family: 'Courier New', monospace;
+                        }
+                        iframe {
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                        }
+                        .error-container {
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background: rgba(0, 20, 0, 0.7);
+                            border: 1px solid #0f0;
+                            padding: 20px;
+                            text-align: center;
+                            color: #0f0;
+                        }
+                        .close-btn {
+                            background: #0f0;
+                            color: #000;
+                            border: none;
+                            padding: 5px 10px;
+                            margin-top: 10px;
+                            cursor: pointer;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe id="proxy-frame" src="${proxyUrl}"></iframe>
+                </body>
+                </html>
+            `);
+            
+            // Get the iframe element
+            const iframe = newWindow.document.getElementById('proxy-frame');
+            
+            // Apply security settings
+            const blockScripts = document.getElementById('blockScripts').checked;
+            const blockFingerprint = document.getElementById('blockFingerprint').checked;
+            const blockCookies = document.getElementById('blockCookies').checked;
+            
+            if (blockScripts) {
+                iframe.sandbox = 'allow-same-origin allow-forms allow-popups allow-modals';
+            }
+            
+            if (blockFingerprint) {
+                iframe.setAttribute('data-fingerprint-protection', 'true');
+            }
+            
+            if (blockCookies) {
+                iframe.setAttribute('data-cookie-protection', 'true');
+            }
+            
+            // Apply cloaking
+            if (cloakUrlBar && displayUrl && newWindow.history && newWindow.history.pushState) {
+                newWindow.history.pushState({}, customTitle || newWindow.document.title, displayUrl);
+            }
+            
+            // Handle iframe errors
+            iframe.onerror = function() {
+                newWindow.document.body.innerHTML = `
+                    <div class="error-container">
+                        <h2>Error</h2>
+                        <p>Failed to load the page. The proxy server might be unavailable or blocked.</p>
+                        <button class="close-btn" onclick="window.close()">Close Tab</button>
+                    </div>
+                `;
+            };
+        }
+
+        // Initialize new tab cloaking when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNewTabCloaking();
+        });
+
+        // Simple cloaking function
+        function cloak(url, title, favicon, displayUrl) {
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+
+            // Format URL if needed
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+
+            // Create new window
+            const win = window.open();
+            if (!win) {
+                alert('Please allow popups to use cloaking');
+                return;
+            }
+
+            // Set basic HTML content
+            win.document.write(`
+                <html>
+                    <head>
+                        <title>${title || 'Loading...'}</title>
+                        ${favicon ? `<link rel="icon" href="${favicon}" type="image/x-icon">` : ''}
+                        <style>
+                            body, html { margin: 0; padding: 0; height: 100%; }
+                            iframe { border: none; width: 100%; height: 100%; }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe src="${url}"></iframe>
+                    </body>
+                </html>
+            `);
+
+            // Set display URL if provided
+            if (displayUrl) {
+                try {
+                    win.history.pushState({}, '', displayUrl);
+                } catch (e) {
+                    console.error('Failed to set display URL:', e);
+                }
+            }
+
+            win.document.close();
+        }
+
+        // Simple about:blank cloaking
+        document.getElementById('ab-apply').onclick = function() {
+            const url = document.getElementById('ab-target-url').value;
+            const title = document.getElementById('ab-title').value;
+            const favicon = document.getElementById('ab-favicon').value;
+            const displayUrl = document.getElementById('ab-display-url').value;
+
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+
+            const win = window.open('about:blank');
+            if (!win) {
+                alert('Please allow popups');
+                return;
+            }
+
+            win.document.write(`
+                <html>
+                <head>
+                    <title>${title || 'Loading...'}</title>
+                    ${favicon ? `<link rel="icon" href="${favicon}">` : ''}
+                </head>
+                <body style="margin:0;padding:0;overflow:hidden;">
+                    <iframe src="${url}" style="border:none;width:100vw;height:100vh;"></iframe>
+                </body>
+                </html>
+            `);
+
+            if (displayUrl) {
+                try {
+                    win.history.pushState({}, '', displayUrl);
+                } catch (e) {
+                    console.error('Failed to set URL:', e);
+                }
+            }
+        };
+
+        // Handle preset buttons
+        const presets = {
+            'google': {
+                url: 'https://www.google.com',
+                title: 'Google',
+                favicon: 'https://www.google.com/favicon.ico'
+            },
+            'youtube': {
+                url: 'https://www.youtube.com',
+                title: 'YouTube',
+                favicon: 'https://www.youtube.com/favicon.ico'
+            },
+            'classroom': {
+                url: 'https://classroom.google.com',
+                title: 'Google Classroom',
+                favicon: 'https://classroom.google.com/favicon.ico'
+            },
+            'docs': {
+                url: 'https://docs.google.com',
+                title: 'Google Docs',
+                favicon: 'https://docs.google.com/favicon.ico'
+            }
+        };
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.onclick = function() {
+                const preset = presets[this.getAttribute('data-preset')];
+                if (preset) {
+                    document.getElementById('ab-target-url').value = preset.url;
+                    document.getElementById('ab-title').value = preset.title;
+                    document.getElementById('ab-favicon').value = preset.favicon;
+                    document.getElementById('ab-display-url').value = preset.url;
+                }
+            };
+        });
+
+        // Add click handler for preview button
+        document.getElementById('ab-preview').addEventListener('click', function() {
+            const targetUrl = document.getElementById('ab-target-url').value;
+            const title = document.getElementById('ab-title').value;
+            const favicon = document.getElementById('ab-favicon').value;
+            const displayUrl = document.getElementById('ab-display-url').value;
+
+            alert(
+                'Preview Settings:\n\n' +
+                'Title: ' + title + '\n' +
+                'URL: ' + targetUrl + '\n' +
+                'Display URL: ' + displayUrl + '\n' +
+                'Favicon: ' + favicon
+            );
+        });
+
+        // Add click handlers for checkboxes in cloaking tab
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.onclick = function() {
+                const id = this.id;
+                const isChecked = this.checked;
+                localStorage.setItem(id, isChecked);
+            };
+        });
+
+        // Handle cloaking tab functionality
+        document.querySelectorAll('.preset-btn').forEach(button => {
+            button.onclick = function() {
+                const presetName = this.getAttribute('data-preset');
+                let title, favicon, displayUrl;
+                
+                switch(presetName) {
+                    case 'google':
+                        title = 'Google';
+                        favicon = 'https://www.google.com/favicon.ico';
+                        displayUrl = 'https://www.google.com';
+                        break;
+                    case 'youtube':
+                        title = 'YouTube';
+                        favicon = 'https://www.youtube.com/favicon.ico';
+                        displayUrl = 'https://www.youtube.com';
+                        break;
+                    case 'docs':
+                        title = 'Google Docs';
+                        favicon = 'https://docs.google.com/favicon.ico';
+                        displayUrl = 'https://docs.google.com';
+                        break;
+                    case 'classroom':
+                        title = 'Google Classroom';
+                        favicon = 'https://classroom.google.com/favicon.ico';
+                        displayUrl = 'https://classroom.google.com';
+                        break;
+                    case 'canvas':
+                        title = 'Canvas';
+                        favicon = 'https://canvas.instructure.com/favicon.ico';
+                        displayUrl = 'https://canvas.instructure.com';
+                        break;
+                    case 'khan':
+                        title = 'Khan Academy';
+                        favicon = 'https://www.khanacademy.org/favicon.ico';
+                        displayUrl = 'https://www.khanacademy.org';
+                        break;
+                }
+
+                // Set form values
+                document.getElementById('new-tab-title').value = title;
+                document.getElementById('new-tab-favicon').value = favicon;
+                document.getElementById('new-tab-display-url').value = displayUrl;
+
+                // Apply changes immediately if checkboxes are checked
+                if (document.getElementById('cloak-new-tab-title').checked) {
+                    document.title = title;
+                }
+                if (document.getElementById('cloak-new-tab-favicon').checked) {
+                    let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                    link.type = 'image/x-icon';
+                    link.rel = 'shortcut icon';
+                    link.href = favicon;
+                    document.getElementsByTagName('head')[0].appendChild(link);
+                }
+                if (document.getElementById('cloak-new-tab-url').checked && window.history && window.history.pushState) {
+                    window.history.pushState({}, title, displayUrl);
+                }
+
+                // Visual feedback
+                button.style.backgroundColor = 'rgba(0, 255, 0, 0.3)';
+                setTimeout(() => button.style.backgroundColor = '', 300);
+            };
+        });
+
+        // Simple preset cloaking
+        document.querySelectorAll('.preset-btn').forEach(button => {
+            button.onclick = function() {
+                const presetName = this.getAttribute('data-preset');
+                let title, favicon;
+                
+                switch(presetName) {
+                    case 'google':
+                        title = 'Google';
+                        favicon = 'https://www.google.com/favicon.ico';
+                        break;
+                    case 'youtube':
+                        title = 'YouTube';
+                        favicon = 'https://www.youtube.com/favicon.ico';
+                        break;
+                    case 'docs':
+                        title = 'Google Docs';
+                        favicon = 'https://docs.google.com/favicon.ico';
+                        break;
+                    case 'classroom':
+                        title = 'Google Classroom';
+                        favicon = 'https://classroom.google.com/favicon.ico';
+                        break;
+                }
+
+                // Change title
+                document.title = title;
+
+                // Change favicon
+                let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                link.type = 'image/x-icon';
+                link.rel = 'shortcut icon';
+                link.href = favicon;
+                document.getElementsByTagName('head')[0].appendChild(link);
+
+                // Visual feedback
+                button.style.backgroundColor = 'rgba(0, 255, 0, 0.3)';
+                setTimeout(() => button.style.backgroundColor = '', 300);
+            };
+        });
+
+        // Simple tab cloaking
+        document.querySelectorAll('.cloak-btn').forEach(button => {
+            button.onclick = function() {
+                // Get title and favicon from button's data attributes
+                const title = this.getAttribute('data-title');
+                const favicon = this.getAttribute('data-favicon');
+                
+                // Change the page title
+                document.title = title;
+                
+                // Change the favicon
+                let link = document.querySelector("link[rel~='icon']");
+                if (!link) {
+                    link = document.createElement('link');
+                    link.rel = 'icon';
+                    document.head.appendChild(link);
+                }
+                link.href = favicon;
+                
+                // Visual feedback
+                this.style.backgroundColor = 'rgba(0, 255, 0, 0.3)';
+                setTimeout(() => this.style.backgroundColor = '', 300);
+            };
+        });
+
+        function setTab(title, faviconUrl) {
+            // Set the page title
+            document.title = title;
+
+            // Remove existing favicon
+            var links = document.getElementsByTagName('link');
+            for (var i = 0; i < links.length; i++) {
+                if (links[i].rel.includes('icon')) {
+                    links[i].parentNode.removeChild(links[i]);
+                }
+            }
+
+            // Add new favicon
+            var link = document.createElement('link');
+            link.rel = 'icon';
+            link.href = faviconUrl;
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+
+        // Change title and favicon automatically on page load
+        document.title = 'Canvas LMS';
+        
+        // Remove any existing favicon
+        var links = document.getElementsByTagName('link');
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].rel.includes('icon')) {
+                links[i].parentNode.removeChild(links[i]);
+            }
+        }
+        
+        // Add Canvas favicon
+        var link = document.createElement('link');
+        link.rel = 'icon';
+        link.href = 'https://sso.canvaslms.com/login/canvas/favicon.ico';
+        document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </body>
 </html> 
