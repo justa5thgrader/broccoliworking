@@ -1937,11 +1937,71 @@
     </div>
 
     <script>
-        // Initialize BareMux connection
+        // Initialize UV and BareMux
         const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
         const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
-        
-        // Update only the proxy URL creation in ab-apply onclick
+
+        // Function to handle URL formatting and proxy
+        async function handleProxyUrl(url) {
+            if (!url) return null;
+            
+            // Format URL
+            let targetUrl = url;
+            if (!url.includes(".")) {
+                targetUrl = "https://www.google.com/search?q=" + encodeURIComponent(url);
+            } else if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                targetUrl = "https://" + url;
+            }
+
+            // Ensure transport is set
+            if (!await connection.getTransport()) {
+                await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+            }
+
+            return __uv$config.prefix + __uv$config.encodeUrl(targetUrl);
+        }
+
+        // Handle direct navigation
+        document.getElementById('navigate-btn').onclick = async function() {
+            const url = document.getElementById('url-input').value;
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+            
+            const proxyUrl = await handleProxyUrl(url);
+            if (proxyUrl) {
+                location.href = proxyUrl;
+            }
+        };
+
+        // Handle new tab
+        document.getElementById('new-tab-btn').onclick = async function() {
+            const url = document.getElementById('url-input').value;
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+
+            const proxyUrl = await handleProxyUrl(url);
+            if (proxyUrl) {
+                const win = window.open('about:blank');
+                win.document.write(`
+                    <html>
+                    <head>
+                        <title>Canvas LMS</title>
+                        <link rel="icon" href="https://sso.canvaslms.com/login/canvas/favicon.ico">
+                    </head>
+                    <body style="margin:0;padding:0;">
+                        <iframe src="${proxyUrl}" style="border:none;width:100%;height:100vh;"></iframe>
+                    </body>
+                    </html>
+                `);
+                win.document.close();
+            }
+        };
+
+        // Handle about:blank tab
         document.getElementById('ab-apply').onclick = async function() {
             const url = document.getElementById('ab-target-url').value;
             if (!url) {
@@ -1949,23 +2009,22 @@
                 return;
             }
 
-            if (!await connection.getTransport()) {
-                await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+            const proxyUrl = await handleProxyUrl(url);
+            if (proxyUrl) {
+                const win = window.open('about:blank');
+                win.document.write(`
+                    <html>
+                    <head>
+                        <title>Canvas LMS</title>
+                        <link rel="icon" href="https://sso.canvaslms.com/login/canvas/favicon.ico">
+                    </head>
+                    <body style="margin:0;padding:0;">
+                        <iframe src="${proxyUrl}" style="border:none;width:100%;height:100vh;"></iframe>
+                    </body>
+                    </html>
+                `);
+                win.document.close();
             }
-
-            const win = window.open('about:blank');
-            win.document.write(`
-                <html>
-                <head>
-                    <title>Canvas LMS</title>
-                    <link rel="icon" href="https://sso.canvaslms.com/login/canvas/favicon.ico">
-                </head>
-                <body style="margin:0;padding:0;">
-                    <iframe src="${__uv$config.prefix + __uv$config.encodeUrl(url)}" style="border:none;width:100%;height:100vh;"></iframe>
-                </body>
-                </html>
-            `);
-            win.document.close();
         };
 
         // Keep all other existing scripts
