@@ -3,19 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TCI home</title>
-    <link rel="shortcut icon" href="https://www.canvas.net/favicon.ico" type="image/x-icon">
-    <!-- UV required scripts -->
-    <script src="/uv/uv.bundle.js"></script>
-    <script src="/uv/uv.config.js"></script>
-    <script src="/baremux/index.js"></script>
-    <script>
-    if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker.register("/uv/sw.js");
-        });
-    }
-    </script>
+    <title>Canvas LMS</title>
+    <link rel="icon" href="https://sso.canvaslms.com/login/canvas/favicon.ico">
     <style>
         :root {
             --primary-color: #00ff00;
@@ -27,92 +16,68 @@
             --border-color: #00ff00;
             --shadow-color: rgba(0, 255, 0, 0.3);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-        }
-
+        
         body {
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            min-height: 100vh;
-            background: #000;
-            color: #0f0;
+            background-color: var(--background-color);
+            color: var(--text-color);
             font-family: 'Courier New', monospace;
-            position: relative;
-        }
-
-        /* Blinking cursor effect */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Matrix-like rain effect for background */
-        @keyframes matrixRain {
-            0% { top: -10%; }
-            100% { top: 100%; }
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 1;
         }
 
-        .main-content {
-            background: rgba(0, 10, 0, 0.7);
-            border: 1px solid #0f0;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            margin-top: 50px;
+        .main-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        .main-content::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #0f0, transparent);
-            animation: scanline 2s linear infinite;
+        .main-tab {
+            padding: 10px 20px;
+            background-color: var(--background-color);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        @keyframes scanline {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-        
-        h1, h2, h3, h4 {
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .main-tab:hover {
+            background-color: var(--hover-color);
         }
 
-        .logo-container {
+        .main-tab.active {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .header {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .logo {
-            max-width: 150px;
-            filter: drop-shadow(0 0 5px #0f0);
-        }
-
-        .header {
-            padding: 20px 0;
-            text-align: center;
+        .site-title {
+            color: #FFD700;
+            font-family: Arial, sans-serif;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
         }
 
         .main-tabs {
@@ -286,13 +251,6 @@
             height: 100%;
             z-index: -1;
             opacity: 0.1;
-        }
-
-        header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 30px;
         }
 
         h1 {
@@ -1714,6 +1672,70 @@
         .preset-btn[data-preset="padlet"]::before { background-image: url('https://padlet.com/favicon.ico'); }
         .preset-btn[data-preset="wakelet"]::before { background-image: url('https://wakelet.com/favicon.ico'); }
         .preset-btn[data-preset="peardeck"]::before { background-image: url('https://www.peardeck.com/favicon.ico'); }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .game-card {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+            background: rgba(0, 255, 0, 0.2);
+        }
+
+        .game-card img {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .game-card h3 {
+            color: var(--text-color);
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .search-container {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        #gameSearch {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        #gameSearch::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .game-card {
+            transition: transform 0.2s;
+        }
+        
+        .game-card:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -1734,10 +1756,7 @@
             </div>
             <nav>
                 <div class="header">
-                    <div style="color: #FFD700; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-bottom: 20px;">
-                        broccoli direct
-                    </div>
-                    <!-- ... rest of the header content ... -->
+                    <h1 class="site-title">Broccoli Direct</h1>
                 </div>
             </nav>
         </header>
@@ -1747,6 +1766,7 @@
             <div class="main-tab active" data-tab="browser">Browser</div>
             <div class="main-tab" data-tab="settings">Settings</div>
             <div class="main-tab" data-tab="cloaking">Cloaking</div>
+            <div class="main-tab" data-tab="games">Games</div>
             <div class="main-tab" data-tab="about-blank">About Blank</div>
             <div class="main-tab" data-tab="about">About</div>
         </div>
@@ -1815,7 +1835,88 @@
         <div class="main-tab-content" id="cloaking-tab">
             <div class="glass-panel">
                 <h3>Tab Cloak</h3>
-                <button onclick="setTab('Canvas LMS', 'https://sso.canvaslms.com/login/canvas/favicon.ico')" class="btn">Canvas LMS</button>
+                <div class="cloak-grid">
+                    <div class="cloak-option" onclick="setTab('Canvas LMS', 'https://sso.canvaslms.com/login/canvas/favicon.ico')">
+                        <img src="https://sso.canvaslms.com/login/canvas/favicon.ico" alt="Canvas LMS">
+                        <h3>Canvas LMS</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Classroom', 'https://www.gstatic.com/classroom/logo_square_48.svg')">
+                        <img src="https://www.gstatic.com/classroom/logo_square_48.svg" alt="Google Classroom">
+                        <h3>Google Classroom</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Docs', 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico')">
+                        <img src="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico" alt="Google Docs">
+                        <h3>Google Docs</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Slides', 'https://ssl.gstatic.com/docs/presentations/images/favicon5.ico')">
+                        <img src="https://ssl.gstatic.com/docs/presentations/images/favicon5.ico" alt="Google Slides">
+                        <h3>Google Slides</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Sheets', 'https://ssl.gstatic.com/docs/spreadsheets/spreadsheets_2020q4_48dp.png')">
+                        <img src="https://ssl.gstatic.com/docs/spreadsheets/spreadsheets_2020q4_48dp.png" alt="Google Sheets">
+                        <h3>Google Sheets</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Drive', 'https://ssl.gstatic.com/images/branding/product/2x/drive_2020q4_48dp.png')">
+                        <img src="https://ssl.gstatic.com/images/branding/product/2x/drive_2020q4_48dp.png" alt="Google Drive">
+                        <h3>Google Drive</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Forms', 'https://ssl.gstatic.com/docs/spreadsheets/forms/favicon_qp2.png')">
+                        <img src="https://ssl.gstatic.com/docs/spreadsheets/forms/favicon_qp2.png" alt="Google Forms">
+                        <h3>Google Forms</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Meet', 'https://ssl.gstatic.com/meet/google_meet_horizontal_wordmark_2020q4_1x_icon_124_40_2373f1d7b0d732f1f3d36bcf3e855769.png')">
+                        <img src="https://ssl.gstatic.com/meet/google_meet_horizontal_wordmark_2020q4_1x_icon_124_40_2373f1d7b0d732f1f3d36bcf3e855769.png" alt="Google Meet">
+                        <h3>Google Meet</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Calendar', 'https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_31_2x.png')">
+                        <img src="https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_31_2x.png" alt="Google Calendar">
+                        <h3>Google Calendar</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Google Sites', 'https://ssl.gstatic.com/sites/p/1.0.0/images/favicon.ico')">
+                        <img src="https://ssl.gstatic.com/sites/p/1.0.0/images/favicon.ico" alt="Google Sites">
+                        <h3>Google Sites</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Khan Academy', 'https://cdn.kastatic.org/images/khan-logo-dark-background-2.png')">
+                        <img src="https://cdn.kastatic.org/images/khan-logo-dark-background-2.png" alt="Khan Academy">
+                        <h3>Khan Academy</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Quizlet', 'https://quizlet.com/a/i/app/1.0.0/assets/logo.quizlet.png')">
+                        <img src="https://quizlet.com/a/i/app/1.0.0/assets/logo.quizlet.png" alt="Quizlet">
+                        <h3>Quizlet</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Edpuzzle', 'https://edpuzzle.imgix.net/edpuzzle-logo.png')">
+                        <img src="https://edpuzzle.imgix.net/edpuzzle-logo.png" alt="Edpuzzle">
+                        <h3>Edpuzzle</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Pearson', 'https://www.pearson.com/content/dam/one-dot-com/one-dot-com/global/Files/icons/favicon.ico')">
+                        <img src="https://www.pearson.com/content/dam/one-dot-com/one-dot-com/global/Files/icons/favicon.ico" alt="Pearson">
+                        <h3>Pearson</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Nearpod', 'https://nearpod.com/favicon.ico')">
+                        <img src="https://nearpod.com/favicon.ico" alt="Nearpod">
+                        <h3>Nearpod</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Schoology', 'https://app.schoology.com/sites/all/themes/schoology_theme/favicon.ico')">
+                        <img src="https://app.schoology.com/sites/all/themes/schoology_theme/favicon.ico" alt="Schoology">
+                        <h3>Schoology</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Blackboard', 'https://www.blackboard.com/favicon.ico')">
+                        <img src="https://www.blackboard.com/favicon.ico" alt="Blackboard">
+                        <h3>Blackboard</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Edmodo', 'https://www.edmodo.com/favicon.ico')">
+                        <img src="https://www.edmodo.com/favicon.ico" alt="Edmodo">
+                        <h3>Edmodo</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('Seesaw', 'https://web.seesaw.me/favicon.ico')">
+                        <img src="https://web.seesaw.me/favicon.ico" alt="Seesaw">
+                        <h3>Seesaw</h3>
+                    </div>
+                    <div class="cloak-option" onclick="setTab('IXL', 'https://www.ixl.com/favicon.ico')">
+                        <img src="https://www.ixl.com/favicon.ico" alt="IXL">
+                        <h3>IXL</h3>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1902,6 +2003,304 @@
                 </div>
             </div>
         </div>
+
+        <!-- Games Tab Content -->
+        <div class="main-tab-content" id="games-tab">
+            <div class="glass-panel">
+                <h2>Games</h2>
+                <div class="games-grid">
+                    <div class="search-container">
+                        <input type="text" id="gameSearch" placeholder="Search games..." onkeyup="searchGames()">
+                    </div>
+                    <div class="game-card" onclick="openGame('https://278889002-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__')">
+                        <img src="https://play-lh.googleusercontent.com/EPV1TB4So1lB0DGrdCVExDpNU8ML4XjqoWBpIiLW_PRNwGYyYj8pKXNjqrChz3uPvwD8" alt="Baldi's Basics" />
+                        <h3>Baldi's Basics</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwiQgeRHVDP8wzJ_CeSE1LyaKCMu1qdlopwylhD4LdBvBVd2y36VjlWY0iyk38WH0JiJA/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Basketball Random">
+                        <h3>Basketball Random</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbx63iRe5mtf5PQGIn_eGwKePxCA1iU6w-YApn57Mh4phi2ZB-G-GCJA1YTV9jKrwoqb/exec')">
+                        <img src="https://smashkarts.io/img/logo.png" alt="Smash Karts">
+                        <h3>Smash Karts</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://firebasestorage.googleapis.com/v0/b/test-1e83a.appspot.com/o/sr3d2.html?alt=media&token=5646f6dd-eddf-47ef-b7cb-8d99937a054f')">
+                        <img src="https://snowrider3d.com/img/logo.png" alt="Snow Rider 3D">
+                        <h3>Snow Rider 3D</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbz6GTepbaULO9dEqHBzfb2Rm0C3pdSKcKnaOGr6qAWXxoppLkkA65v3vTgsDS4o7W56aQ/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Sky Car Rider">
+                        <h3>Sky Car Rider</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwqW4kBl41CHKxAW1aOCzUllnCGaK6LDmkZfAZH_dJzu646nns5bRfn0oqa5Zpq9zEI/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Death Run 3D">
+                        <h3>Death Run 3D</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzi5I00V5E4UoWKNwYMpazWyXDs1J4m0hui0937lFzMRKs31QGZ3rcUHRroAt13wmc9tw/exec')">
+                        <img src="https://vex6.com/img/logo.png" alt="Vex 6">
+                        <h3>Vex 6</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxGM35J29NkO-2LYjxWj_cA9IUaaXypkUy-LqXyLRbGTz0R6lXmAEapz1STN1jlTIRavw/exec')">
+                        <img src="https://orteil.dashnet.org/cookieclicker/img/icon.png" alt="Cookie Clicker">
+                        <h3>Cookie Clicker</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwXhPAppqZUy69d6b26B3Z6daQdZmzPsiaSsywQseSBMh94FLNnVTmupJqtonwt9oaQLw/exec')">
+                        <img src="https://snake.io/img/logo.png" alt="Snake.io">
+                        <h3>Snake.io</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbyix6sPjvsn_izDvhJLVuif1buj9ZtARvj9D_FEQ0rscRXgl-RgArs0t4oJw_OHm5Dr5A/exec')">
+                        <img src="https://amongus.io/img/logo.png" alt="Among Us">
+                        <h3>Among Us</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbx_sIQG2rUisJPhvCnaoOFGDwTou_89iDBoJTAB5RsdykYLw7IQF8vUYUKMBDoJDY0asQ/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Car Drawing">
+                        <h3>Car Drawing</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxU6cZkUx_sDIJf4BqIMj7zkzzhbeEIr58TkysbYpIyy9y32zd8q-yVo1cf9td2b8TM/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Sprunki Clicker">
+                        <h3>Sprunki Clicker</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxeLEpzZpAIPrMSkB1dCTPkLcn8wcNTVCw0wfN2q_jOfXWQ3GhcrqygfgQq1t2yyK6tCQ/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Mr Racer">
+                        <h3>Mr Racer</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://scratch.mit.edu/projects/105500895/embed')">
+                        <img src="https://geometrydash.io/img/logo.png" alt="Geometry Dash">
+                        <h3>Geometry Dash</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://firebasestorage.googleapis.com/v0/b/test-1e83a.appspot.com/o/1.html?alt=media&token=3542ede2-65da-4871-a64a-3494f448bb76')">
+                        <img src="https://1v1.lol/img/logo.png" alt="1v1.LOL">
+                        <h3>1v1.LOL</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxUirOvda1cK6lygKXhf6KU-fXxCw2oBnggnBCSH7A3tU8cyIgjoLGJNWUs3HtDootq/exec')">
+                        <img src="https://motox3m.io/img/logo.png" alt="Moto X3M">
+                        <h3>Moto X3M</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwOs-SsYeiN758I5eVCPGl7YW-IpawaSbapsKt3NUZwWLSpC8fZfDH7wqeQE1hGBiSZ/exec')">
+                        <img src="https://supermario.io/img/logo.png" alt="Super Mario">
+                        <h3>Super Mario</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzrzH3F40_t7GSh9M-o6VzOYpFfCj2JG4N0dqqcZSAuARN-p_kF8xDDoCrU8bd-XZxA/exec')">
+                        <img src="https://supermario.io/img/logo.png" alt="Super Mario Bros 3">
+                        <h3>Super Mario Bros 3</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxY1zcRZnw2K9ovRCxOKaHocUcksiG7aw7OOs8IKSrDw8wtqyOXrXiCfxy2ZNEcLs-hlQ/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Fire Balls">
+                        <h3>Fire Balls</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://scratch.mit.edu/projects/embed/17964117')">
+                        <img src="https://flappybird.io/img/logo.png" alt="Flappy Bird OG">
+                        <h3>Flappy Bird OG</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzwDflD6NVq9iPdEWsRyyI4iqR_k47P-BK4sn_vpYaZGsPJz3zDYRDy45azzYiPnYs/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Bottle Flip 3D">
+                        <h3>Bottle Flip 3D</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwgo9fzGlgbzqpBKfXrw7gGGvg8cYPPL-ycgd_y9jKePSDVnk_zr_keYn8v-0eUJQd5/exec')">
+                        <img src="https://2048.io/img/logo.png" alt="2048 Game">
+                        <h3>2048 Game</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycby30nrhMSPeJyfgpPQfLsVVhOxjjyErkIsQtoYAzPkRYenYcSBpVyMcOwXy_flMCjFm/exec')">
+                        <img src="https://angrybirds.io/img/logo.png" alt="Angry Birds OG">
+                        <h3>Angry Birds OG</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzKR69hQK7HutG9tRM2cEM9H8vEX8xwkPDTeEjeju7G_P2Xf83RYqBoNT2S9NPo7NWN/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Bloons TD 1">
+                        <h3>Bloons TD 1</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxI5KGOnqExl7GEpiCd5XXr9PXBMkGhDLWnOQfEuXRjmXom-nUzLjOXfP4iwAYUvbE/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Bloons TD 2">
+                        <h3>Bloons TD 2</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzRkRFh3xH_YzLqtvFVsKcPOdqkcps9umH96kwECqmzugE1XkxYo6ryhCKD1m7JkR0-rw/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Bloons TD 3">
+                        <h3>Bloons TD 3</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxeATXd8GtKmm7SabIq9L-KKLOeSpiiyroLLAYKhzDNmacYq52DkBZb_L2YHwupaOs/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Bloons TD 4 Expansion">
+                        <h3>Bloons TD 4 Expansion</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzSjvvBl4oIbQbsdQ6wORkEPqBumZKhlNUW3FirGHuAIe6EPZ_QGuF4N0TqjL0ECFoo/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Bloons TD 5">
+                        <h3>Bloons TD 5</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://storage.googleapis.com/test-41376.appspot.com/pubgmini.html')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="PUBG Mini">
+                        <h3>PUBG Mini</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbyvVfKl6U8WIVvyCjiU0bTUncbb_pYAdYbJGrvPFL8g4H3brthvqFi2uKK6YW5nTJepcw/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Mario Run">
+                        <h3>Mario Run</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbx88tZ42kElQx0zgLz43Yg0t6dSWzt5orHxO2NnPXcV2cJ-ZQSKzdAeuoEDjHufzXJF_Q/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Super Mario Sunshine 64 (Mod)">
+                        <h3>Super Mario Sunshine 64 (Mod)</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwSQ0aXrXdz23Z0adlljZLtt6EGzD7max6U15OnUFBxhQmht6KK7l7RzsVo2wOdkoXR/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Hole.io">
+                        <h3>Hole.io</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbw8iHPqdVFEzquUYbNxFVAu1Tw4Nri5SWMRLdP_c7a84vCOHVG7YUWuhjSVptg1SVHr/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Drift Hunters">
+                        <h3>Drift Hunters</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbyJg41h2LSrrKUlNQaOTWWByT-xkFYWnYT7ze3t8V2GcKy2K5CIiYx_oogVcxWllIKL/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="NBA Jam">
+                        <h3>NBA Jam</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwD4aYk8804rFEa2GleUacBH110qmzS8bz-wHnRTTigY2HkE3iafHYLRCkH0nUGc_oA/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Chess">
+                        <h3>Chess</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwfchAHcT3pRY88_OkW8cVOHwip5j8SbD_7jhezDN5ZrZkQMUSqr7PlWNim0cW2JO8ibw/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Board Game Classics">
+                        <h3>Board Game Classics</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxzGXZ-dYcADWPNv7OSO6OdaFl8sJtBNY8J1KO5EQ33_I37NN0nQkaej4HqNCAkvxHHqA/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Fall Guys">
+                        <h3>Fall Guys</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbxpNZjxFXfBnNFF3OhqKJCPOcCqq50UdU0-SjT4ZfIwmYSoy4pD2-Um2HDEVP27ADs6/exec')">
+                        <img src="https://www.google.com/images/icons/product/drive-64.png" alt="Operious">
+                        <h3>Operious</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://1166457627-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__')">
+                        <img src="https://www.minecraft.net/content/dam/games/minecraft/key-art/MC_The_Wild_Update_1170x500.jpg" alt="Minecraft 1.8.8">
+                        <h3>Minecraft 1.8.8</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://1908214505-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Spiral Roll">
+                        <h3>Spiral Roll</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://www.coolmathgames.com/0-the-impossible-quiz')">
+                        <img src="https://www.coolmathgames.com/sites/default/files/games/icon/icon-impossible-quiz.png" alt="The Impossible Quiz">
+                        <h3>The Impossible Quiz</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://1831492897-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__')">
+                        <img src="https://slither.io/img/slither.png" alt="Slither.io">
+                        <h3>Slither.io</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://51062249-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Car Driving Drift 2">
+                        <h3>Car Driving Drift 2</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbyoVKqSi44yCkcl01rp17c7Dluj_4Q9P5kSsqGcf02xgBTx_mT6jik17o2mhkGgd9Yj/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Rooftop Snipers">
+                        <h3>Rooftop Snipers</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwqW4kBl41CHKxAW1aOCzUllnCGaK6LDmkZfAZH_dJzu646nns5bRfn0oqa5Zpq9zEI/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Death Run 3D">
+                        <h3>Death Run 3D</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://storage.googleapis.com/test-41376.appspot.com/ts3.html')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Time Shooter 3">
+                        <h3>Time Shooter 3</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwr79gF5RqgUkBr0YEX16ayQF4aqdcHxaLRubcOggFvXqp-PiG7tw0uyvr3vlUEpDnC/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Soccar Random">
+                        <h3>Soccar Random</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbygjC3zfZtvLnkZSdN0ZYEX2u1ZGEKeW6fP2y2SC0cJBvYVq7f_wZGbgbrFaq0iUhcNsA/exec')">
+                        <img src="https://play-lh.googleusercontent.com/8U299jZ3XqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQ=w240-h480-rw" alt="Melon Playground">
+                        <h3>Melon Playground</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzBAwdrT4yM1Hd7ZZZh8uHlWcfaGqq2wuP6CXzRYrI25JI-1v42AyvMtIeiFfelHuV3jA/exec')">
+                        <img src="https://www.sonicretro.org/wp-content/uploads/2019/06/sonic_mania_plus_art.jpg" alt="Sonic Revert">
+                        <h3>Sonic Revert</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbwWFVSflZjpFKgB73dzoNbl5d044y0_BcfrRyVqgfURdUZHpHJUDEeQS1ABGGqXmFoo/exec')">
+                        <img src="https://i.ytimg.com/vi/8Q3XQqVQJ8M/maxresdefault.jpg" alt="Boxing Random">
+                        <h3>Boxing Random</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzDdetO4NX5twY1pU389ZUG2M9DERmoV0DeJNJS7SvzVIdA1WUaBeIeHo_CfQVNw2gq6g/exec')">
+                        <img src="https://ssl.gstatic.com/docs/spreadsheets/spreadsheets_2020q4_48dp.png" alt="Poop Clicker">
+                        <h3>Poop Clicker</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://script.google.com/macros/s/AKfycbzZN3jRO2eOgcp622_W0GYAeArMio71AmlfRhF8yFucC5hEbRnDFZ3NLiN8peebEdlhWw/exec')">
+                        <img src="https://ssl.gstatic.com/docs/spreadsheets/spreadsheets_2020q4_48dp.png" alt="Spacebar Clicker">
+                        <h3>Spacebar Clicker</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://play-lh.googleusercontent.com/8U299jZ3XqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQ=w240-h480-rw')">
+                        <img src="https://play-lh.googleusercontent.com/8U299jZ3XqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQZq8zZqQ=w240-h480-rw" alt="Melon Playground">
+                        <h3>Melon Playground</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://278889002-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__')">
+                        <img src="https://img.poki.com/cdn-cgi/image/quality=78,width=600,height=600,fit=cover,f=auto/12a0ed7c6bc09b73d6ef5a5f35424b6d.png" alt="Ragdoll Bow" />
+                        <h3>Ragdoll Bow</h3>
+                    </div>
+                    <div class="game-card" onclick="openGame('https://1180351671-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__')">
+                        <img src="https://tr.rbxcdn.com/8f4c1556e8c397c82688f246360f8f28/768/432/Image/Png" alt="Obby 99% Lose" />
+                        <h3>Obby 99% Lose</h3>
+                    </div>
+                    <div class="game-card" onclick="window.open('https://829474971-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__', '_blank')">
+                        <img src="https://img.gamedistribution.com/16cb204cf3a9d4d223a0a3fd8b0eec5d-512x512.jpeg" alt="Race Online City">
+                        <h3>Race Online City</h3>
+                    </div>
+                    <div class="game-card" onclick="window.open('https://1797259810-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__', '_blank')">
+                        <img src="https://img.gamedistribution.com/16cb204cf3a9d4d223a0a3fd8b0eec5d-512x512.jpeg" alt="Crazy Planes">
+                        <h3>Crazy Planes</h3>
+                    </div>
+                    <div class="game-card" onclick="window.open('https://469242115-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html?jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.aua8ukEWe74.O%2Fd%3D1%2Frs%3DAHpOoo-9vDKdscewy8drQ984EeTo0iOz2A%2Fm%3D__features__', '_blank')">
+                        <img src="https://img.gamedistribution.com/16cb204cf3a9d4d223a0a3fd8b0eec5d-512x512.jpeg" alt="Cra Driving Drift">
+                        <h3>Cra Driving Drift</h3>
+                    </div>
+                    <div class="game-card" onclick="window.open('https://script.google.com/macros/s/AKfycbxJNtrKTWPCSIo9tOqq53G2xqoQCIPDTYUsVOT79Eqk8I7C5cQkGdDnj0jzlNHa7bvs3g/exec', '_blank')">
+                        <img src="https://img.gamedistribution.com/16cb204cf3a9d4d223a0a3fd8b0eec5d-512x512.jpeg" alt="FNAF">
+                        <h3>FNAF</h3>
+                    </div>
+                    <div class="game-card" onclick="window.open('https://script.google.com/macros/s/AKfycbz9ZJCJhSWY_L-w8eDd3YKJVCPtmVikRpLFXZo9chsP9Ui1bASy8inKly0D7odsrgHbJw/exec', '_blank')">
+                        <img src="https://img.gamedistribution.com/16cb204cf3a9d4d223a0a3fd8b0eec5d-512x512.jpeg" alt="Doodle Jump">
+                        <h3>Doodle Jump</h3>
+                    </div>
+                    <div class="game-card" onclick="window.open('https://script.google.com/macros/s/AKfycbzjgnGGeTNL2DTjJzVx3WGvsLjEyA47O6xYss-ijTLWWwrQv9siK9Gn_QqNDlDkrc27/exec', '_blank')">
+                        <img src="https://img.gamedistribution.com/16cb204cf3a9d4d223a0a3fd8b0eec5d-512x512.jpeg" alt="Omega Clicker">
+                        <h3>Omega Clicker</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Tab Content -->
+        <div class="main-tab-content active" id="home-tab">
+            <div class="glass-panel">
+                <h2>Welcome to Broccoli Unblocker</h2>
+                <div class="promo-text">
+                    <h3>🚀 Why Gamers Love Broccoli Unblocker</h3>
+                    <p>Unlike other gaming sites filled with broken links, intrusive ads, or shady downloads, Broccoli Unblocker focuses on delivering a clean, user-friendly experience. Our unblocked games are carefully selected to ensure they load quickly, run without lag, and most importantly bypass common school or workplace filters. From adrenaline-pumping action games to brain-teasing puzzles and multiplayer challenges, we update our library regularly so you'll always find something fresh to play.</p>
+
+                    <h3>🔥 A Library Built for Players</h3>
+                    <p>We know that gamers have different tastes, so we've organized our collection into easy-to-browse categories:</p>
+                    <ul>
+                        <li>✔ Action & Adventure: Defeat enemies, escape traps, and explore dynamic worlds.</li>
+                        <li>✔ Puzzle & Strategy: Test your logic with mind-bending challenges.</li>
+                        <li>✔ Sports & Racing: Shoot, score, or speed your way to victory.</li>
+                        <li>✔ Classic Arcade: Nostalgic retro unblocked games for quick, satisfying sessions.</li>
+                        <li>✔ Two-Player Games: Challenge a friend in head-to-head battles.</li>
+                    </ul>
+
+                    <h3>📌 No Barriers, Just Unblocked Games</h3>
+                    <p>One of the biggest frustrations with gaming sites is dealing with complicated setups but not here. Broccoli Unblocker eliminates all the annoyances:</p>
+                    <ul>
+                        <li>✔ Zero Downloads: Every game runs directly in your browser.</li>
+                        <li>✔ No Registration: No annoying sign-ups or personal data required.</li>
+                        <li>✔ Works on Any Device: Play on Chromebooks, laptops, or even school PCs.</li>
+                        <li>✔ Safe & Secure: We filter out malicious ads and scams so you can game worry-free.</li>
+                    </ul>
+
+                    <h3>👉 How to Get Started? It Couldn't Be Easier.</h3>
+                    <ol>
+                        <li>Visit Broccoli Unblocker (bookmark us to skip the search next time!).</li>
+                        <li>Choose a game browse by category or use the search bar.</li>
+                        <li>Click and play instantly no waiting, no redirects.</li>
+                    </ol>
+
+                    <h3>💡 Our Promise to You</h3>
+                    <p>We're not just another unblocked games site. Broccoli Unblocker is built by gamers, for gamers, with a focus on speed, accessibility, and fun. Whether you're a student looking for a quick break or someone stuck at work needing a distraction, we've got your back.</p>
+
+                    <h3>🎮 Ready to play? Jump in now and see why thousands of players choose Broccoli Unblocker every day!</h3>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Browser Container -->
@@ -1936,110 +2335,1496 @@
         <button id="uv-error-close">Close</button>
     </div>
 
+    <!-- Core Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet/dist/uv.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet/dist/uv.config.js"></script>
+    
     <script>
-        // Initialize UV and BareMux
-        const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
-        const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
+        // Update proxy servers list
+        const proxyServers = [
+            { ip: '23.82.137.159', port: '80', type: 'http', country: 'US', speed: '5.2s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Leaseweb USA, Inc' },
+            { ip: '115.106.173.107', port: '13001', type: 'http', country: 'US', speed: '5.0s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'AS132203' },
+            { ip: '43.153.21.13', port: '13001', type: 'http', country: 'US', speed: '6.8s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Tencent Cloud Computing' },
+            { ip: '159.65.230.46', port: '8888', type: 'http', country: 'US', speed: '5.6s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'DigitalOcean, LLC' },
+            { ip: '65.49.2.199', port: '3128', type: 'http', country: 'US', speed: '6.5s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Dynamic Internet Technology Inc' },
+            { ip: '43.135.147.75', port: '13001', type: 'http', country: 'US', speed: '8.1s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '93%', lastChecked: 'Just now', provider: 'Tencent Cloud Computing' },
+            { ip: '24.144.115.60', port: '8888', type: 'http', country: 'US', speed: '9.4s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'DigitalOcean, LLC' },
+            { ip: '43.130.61.237', port: '13001', type: 'http', country: 'US', speed: '10.9s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Tencent Cloud Computing' },
+            { ip: '154.16.146.41', port: '80', type: 'http', country: 'US', speed: '13.4s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '81%', lastChecked: 'Just now', provider: 'OC1-HostForWeb, LLC' },
+            { ip: '43.153.23.242', port: '13001', type: 'http', country: 'US', speed: '12.2s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now', provider: 'Tencent Cloud Computing' }
+        ];
 
-        // Function to handle URL formatting and proxy
-        async function handleProxyUrl(url) {
-            if (!url) return null;
+        // Initialize UV configuration
+        window.__uv$config = {
+            prefix: '/uv/',
+            bare: 'https://bare.titaniumnetwork.org/',
+            encodeUrl: Ultraviolet.codec.xor.encode,
+            decodeUrl: Ultraviolet.codec.xor.decode,
+            handler: '/uv/uv.handler.js',
+            bundle: '/uv/uv.bundle.js',
+            config: '/uv/uv.config.js',
+            sw: '/uv/uv.sw.js',
+        };
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing application...');
             
-            // Format URL
-            let targetUrl = url;
-            if (!url.includes(".")) {
-                targetUrl = "https://www.google.com/search?q=" + encodeURIComponent(url);
-            } else if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                targetUrl = "https://" + url;
-            }
+            // Initialize tabs
+            initializeTabs();
+            
+            // Initialize proxy list
+            initializeProxyList();
+            
+            // Initialize browser functionality
+            initializeBrowser();
+            
+            // Initialize cloaking
+            initializeCloaking();
+            
+            // Initialize matrix rain animation
+            initializeMatrixRain();
+            
+            // Initialize error handling
+            initializeErrorHandling();
+            
+            // Register service worker
+            registerServiceWorker();
+        });
 
-            // Ensure transport is set
-            if (!await connection.getTransport()) {
-                await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
-            }
-
-            return __uv$config.prefix + __uv$config.encodeUrl(targetUrl);
+        // Core functionality
+        function initializeTabs() {
+            const tabs = document.querySelectorAll('.main-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active states
+                    document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.main-tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    document.getElementById(tabId + '-tab').classList.add('active');
+                });
+            });
         }
 
-        // Handle direct navigation with a simpler approach
-        document.getElementById('navigate-btn').onclick = function() {
-            console.log("Navigate button clicked");
-            const url = document.getElementById('url-input').value;
-            if (!url) {
-                alert('Please enter a URL');
+        // Add proxy filtering and sorting functionality
+        function initializeProxyList() {
+            const proxyList = document.getElementById('proxy-list');
+            if (!proxyList) return;
+
+            // Add filter controls
+            const filterControls = document.createElement('div');
+            filterControls.className = 'proxy-filters';
+            filterControls.innerHTML = `
+                <div class="filter-group">
+                    <input type="text" id="proxy-search" placeholder="Search proxies..." class="proxy-search">
+                    <select id="proxy-sort" class="proxy-sort">
+                        <option value="speed">Sort by Speed</option>
+                        <option value="reliability">Sort by Reliability</option>
+                        <option value="provider">Sort by Provider</option>
+                    </select>
+                </div>
+            `;
+            proxyList.parentNode.insertBefore(filterControls, proxyList);
+
+            // Add styles for filters
+            const style = document.createElement('style');
+            style.textContent = `
+                .proxy-filters {
+                    margin-bottom: 15px;
+                    display: flex;
+                    gap: 10px;
+                }
+                .proxy-search {
+                    flex: 1;
+                    padding: 8px;
+                    background: rgba(0, 20, 0, 0.7);
+                    border: 1px solid #0f0;
+                    color: #0f0;
+                    border-radius: 4px;
+                }
+                .proxy-sort {
+                    padding: 8px;
+                    background: rgba(0, 20, 0, 0.7);
+                    border: 1px solid #0f0;
+                    color: #0f0;
+                    border-radius: 4px;
+                }
+                .proxy-item {
+                    background: rgba(0, 30, 0, 0.5);
+                    border: 1px solid rgba(0, 255, 0, 0.2);
+                    border-radius: 4px;
+                    padding: 10px;
+                    margin-bottom: 8px;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+                .proxy-item:hover {
+                    background: rgba(0, 40, 0, 0.7);
+                    border-color: #0f0;
+                    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+                }
+                .proxy-item.active {
+                    background: rgba(0, 50, 0, 0.8);
+                    border: 1px solid #0f0;
+                    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+                }
+                .proxy-details {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    font-size: 0.9em;
+                    color: rgba(0, 255, 0, 0.7);
+                }
+                .proxy-stats {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    font-size: 0.9em;
+                }
+                .reliability-perfect { color: #00ff00; }
+                .reliability-good { color: #aaff00; }
+                .reliability-medium { color: #ffff00; }
+                .reliability-poor { color: #ff6600; }
+            `;
+            document.head.appendChild(style);
+
+            // Add event listeners for filtering
+            document.getElementById('proxy-search').addEventListener('input', updateProxyList);
+            document.getElementById('proxy-sort').addEventListener('change', updateProxyList);
+
+            // Initial render
+            updateProxyList();
+        }
+
+        function updateProxyList() {
+            const proxyList = document.getElementById('proxy-list');
+            const searchTerm = document.getElementById('proxy-search').value.toLowerCase();
+            const sortBy = document.getElementById('proxy-sort').value;
+
+            // Filter and sort proxies
+            let filteredProxies = proxyServers.filter(proxy => 
+                proxy.ip.toLowerCase().includes(searchTerm) ||
+                proxy.provider.toLowerCase().includes(searchTerm) ||
+                proxy.location.toLowerCase().includes(searchTerm)
+            );
+
+            // Sort proxies
+            filteredProxies.sort((a, b) => {
+                switch(sortBy) {
+                    case 'speed':
+                        return parseFloat(a.speed) - parseFloat(b.speed);
+                    case 'reliability':
+                        return parseFloat(b.reliability) - parseFloat(a.reliability);
+                    case 'provider':
+                        return a.provider.localeCompare(b.provider);
+                    default:
+                        return 0;
+                }
+            });
+
+            // Render proxies
+            proxyList.innerHTML = '';
+            filteredProxies.forEach((proxy, index) => {
+                const proxyItem = document.createElement('div');
+                proxyItem.className = 'proxy-item';
+                proxyItem.dataset.index = index;
+                
+                const flagUrl = `https://flagcdn.com/16x12/${proxy.country.toLowerCase()}.png`;
+                
+                proxyItem.innerHTML = `
+                    <div class="proxy-ip">
+                        <img src="${flagUrl}" alt="${proxy.country}" class="flag-icon">
+                        ${proxy.ip}:${proxy.port}
+                    </div>
+                    <div class="proxy-details">
+                        <span>${proxy.location}</span>
+                        <span>${proxy.speed}</span>
+                        <span class="proxy-type">${proxy.protocol}</span>
+                    </div>
+                    <div class="proxy-stats">
+                        <span class="reliability ${getReliabilityClass(proxy.reliability)}">
+                            ${proxy.reliability}
+                        </span>
+                        <span class="provider">${proxy.provider}</span>
+                    </div>
+                `;
+                
+                proxyItem.addEventListener('click', function() {
+                    document.querySelectorAll('.proxy-item').forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                });
+                
+                proxyList.appendChild(proxyItem);
+            });
+        }
+
+        function initializeBrowser() {
+            const navigateBtn = document.getElementById('navigate-btn');
+            const urlInput = document.getElementById('url-input');
+            
+            if (navigateBtn && urlInput) {
+                navigateBtn.addEventListener('click', function() {
+                    const url = urlInput.value.trim();
+                    if (url) {
+                        navigateToUrl(url);
+                    } else {
+                        alert('Please enter a URL');
+                    }
+                });
+                
+                urlInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const url = this.value.trim();
+                        if (url) {
+                            navigateToUrl(url);
+                        }
+                    }
+                });
+            }
+        }
+
+        function navigateToUrl(url) {
+            if (!url) return;
+            
+            // Format URL if needed
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            
+            // Get active proxy
+            const activeProxy = getActiveProxy();
+            if (!activeProxy) {
+                alert('Please select a proxy server first');
                 return;
             }
             
-            // Format URL
-            let targetUrl = url;
-            if (!url.includes(".")) {
-                targetUrl = "https://www.google.com/search?q=" + encodeURIComponent(url);
-            } else if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                targetUrl = "https://" + url;
-            }
-
-            // Direct way to use UV without async/await
-            const uvUrl = __uv$config.prefix + __uv$config.encodeUrl(targetUrl);
-            console.log("Navigating to:", uvUrl);
+            // Get selected proxy type
+            const proxyType = document.getElementById('proxyType').value;
+            const proxyServer = document.getElementById('proxyServer').value;
             
-            // Redirect
-            location.href = uvUrl;
+            // Construct proxy URL based on selected proxy server
+            let proxyUrl;
+            switch (proxyServer) {
+                case 'uv':
+                    proxyUrl = `/uv/${url}`;
+                    break;
+                case 'dynamic':
+                    proxyUrl = `/dynamic/${url}`;
+                    break;
+                case 'rammerhead':
+                    proxyUrl = `/rammerhead/${url}`;
+                    break;
+                default:
+                    proxyUrl = `/uv/${url}`;
+            }
+            
+            // Create a new window with specific features
+            const newWindow = window.open('', '_blank', 'width=1024,height=768,menubar=no,toolbar=no,location=no');
+            
+            if (!newWindow) {
+                alert('Please allow popups for this site to open in a new tab');
+                return;
+            }
+            
+            // Write basic HTML structure to the new window
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Loading...</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            background: #000;
+                            color: #0f0;
+                            font-family: 'Courier New', monospace;
+                        }
+                        iframe {
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                        }
+                        .error-container {
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background: rgba(0, 20, 0, 0.7);
+                            border: 1px solid #0f0;
+                            padding: 20px;
+                            text-align: center;
+                            color: #0f0;
+                        }
+                        .close-btn {
+                            background: #0f0;
+                            color: #000;
+                            border: none;
+                            padding: 5px 10px;
+                            margin-top: 10px;
+                            cursor: pointer;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe id="proxy-frame" src="${proxyUrl}"></iframe>
+                </body>
+                </html>
+            `);
+            
+            // Get the iframe element
+            const iframe = newWindow.document.getElementById('proxy-frame');
+            
+            // Apply security settings
+            const blockScripts = document.getElementById('blockScripts').checked;
+            const blockFingerprint = document.getElementById('blockFingerprint').checked;
+            const blockCookies = document.getElementById('blockCookies').checked;
+            
+            if (blockScripts) {
+                iframe.sandbox = 'allow-same-origin allow-forms allow-popups allow-modals';
+            }
+            
+            if (blockFingerprint) {
+                iframe.setAttribute('data-fingerprint-protection', 'true');
+            }
+            
+            if (blockCookies) {
+                iframe.setAttribute('data-cookie-protection', 'true');
+            }
+            
+            // Add cloaking if enabled
+            const cloakTitle = document.getElementById('cloak-title').checked;
+            const cloakFavicon = document.getElementById('cloak-favicon').checked;
+            const cloakUrlBar = document.getElementById('cloak-url-bar').checked;
+            
+            if (cloakTitle || cloakFavicon || cloakUrlBar) {
+                const activeCloak = document.querySelector('.cloak-item.active');
+                if (activeCloak) {
+                    const title = activeCloak.getAttribute('data-title');
+                    const favicon = activeCloak.getAttribute('data-favicon');
+                    const displayUrl = activeCloak.getAttribute('data-url');
+                    
+                    if (cloakTitle && title) {
+                        newWindow.document.title = title;
+                    }
+                    
+                    if (cloakFavicon && favicon) {
+                        let faviconLink = newWindow.document.createElement('link');
+                        faviconLink.type = 'image/x-icon';
+                        faviconLink.rel = 'shortcut icon';
+                        faviconLink.href = favicon;
+                        newWindow.document.head.appendChild(faviconLink);
+                    }
+                    
+                    if (cloakUrlBar && displayUrl) {
+                        newWindow.history.pushState({}, title || newWindow.document.title, displayUrl);
+                    }
+                }
+            }
+            
+            // Handle iframe errors
+            iframe.onerror = function() {
+                newWindow.document.body.innerHTML = `
+                    <div class="error-container">
+                        <h2>Error</h2>
+                        <p>Failed to load the page. The proxy server might be unavailable or blocked.</p>
+                        <button class="close-btn" onclick="window.close()">Close Tab</button>
+                    </div>
+                `;
+            };
+        }
+
+        function getActiveProxy() {
+            const activeItem = document.querySelector('.proxy-item.active');
+            if (activeItem) {
+                const index = activeItem.dataset.index;
+                return proxyServers[index];
+            }
+            return null;
+        }
+
+        function initializeCloaking() {
+            const cloakItems = document.querySelectorAll('.cloak-item');
+            cloakItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.cloak-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const title = this.getAttribute('data-title');
+                    const favicon = this.getAttribute('data-favicon');
+                    const url = this.getAttribute('data-url');
+                    
+                    if (document.getElementById('cloak-title').checked && title) {
+                        document.title = title;
+                    }
+                    
+                    if (document.getElementById('cloak-favicon').checked && favicon) {
+                        let faviconLink = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                        faviconLink.type = 'image/x-icon';
+                        faviconLink.rel = 'shortcut icon';
+                        faviconLink.href = favicon;
+                        document.getElementsByTagName('head')[0].appendChild(faviconLink);
+                    }
+                    
+                    if (document.getElementById('cloak-url-bar').checked && url && window.history && window.history.pushState) {
+                        window.history.pushState({}, title || document.title, url);
+                    }
+                });
+            });
+        }
+
+        function initializeMatrixRain() {
+            const canvas = document.getElementById('matrix-rain');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const characters = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            
+            const drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+            }
+            
+            function drawMatrixRain() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#0f0';
+                ctx.font = fontSize + 'px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(drawMatrixRain, 50);
+            
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        function initializeErrorHandling() {
+            const errorContainer = document.getElementById('uv-error');
+            const errorMessage = document.getElementById('uv-error-message');
+            const errorClose = document.getElementById('uv-error-close');
+            
+            if (errorClose) {
+                errorClose.addEventListener('click', function() {
+                    errorContainer.style.display = 'none';
+                });
+            }
+            
+            window.addEventListener('error', function(event) {
+                if (event.filename && event.filename.includes('ultraviolet')) {
+                    event.preventDefault();
+                    if (errorMessage) {
+                        errorMessage.textContent = `${event.message}\n\nThis may happen if the proxy service is unavailable or blocked.`;
+                    }
+                    if (errorContainer) {
+                        errorContainer.style.display = 'block';
+                    }
+                }
+            });
+        }
+
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/uv/sw.js', {
+                        scope: '/uv/'
+                    }).then(reg => {
+                        console.log('Service worker registered successfully', reg);
+                    }).catch(err => {
+                        console.error('Service worker registration failed:', err);
+                    });
+                });
+            }
+        }
+
+        // Helper function to get reliability class
+        function getReliabilityClass(reliability) {
+            if (reliability === 'new') return 'reliability-new';
+            if (reliability.includes('100%')) return 'reliability-perfect';
+            if (reliability.includes('%')) {
+                const percent = parseInt(reliability);
+                if (percent >= 70) return 'reliability-good';
+                if (percent >= 40) return 'reliability-medium';
+                return 'reliability-poor';
+            }
+            return '';
+        }
+
+        // Add browser controls functionality
+        document.getElementById('back-btn').addEventListener('click', function() {
+            window.history.back();
+        });
+
+        document.getElementById('forward-btn').addEventListener('click', function() {
+            window.history.forward();
+        });
+
+        document.getElementById('refresh-btn').addEventListener('click', function() {
+            window.location.reload();
+        });
+
+        document.getElementById('go-btn').addEventListener('click', function() {
+            const url = document.getElementById('browser-address-bar').value;
+            if (url) {
+                navigateToUrl(url);
+            }
+        });
+
+        // Add settings functionality
+        document.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const setting = this.id;
+                const value = this.checked;
+                console.log(`Setting ${setting} changed to ${value}`);
+                // Here you would implement the actual setting change logic
+            });
+        });
+
+        // Add proxy type change handler
+        document.getElementById('proxyType').addEventListener('change', function() {
+            const type = this.value;
+            console.log(`Proxy type changed to ${type}`);
+            // Here you would implement the proxy type change logic
+        });
+
+        // Add proxy server change handler
+        document.getElementById('proxyServer').addEventListener('change', function() {
+            const server = this.value;
+            const proxyList = document.getElementById('proxy-list');
+            
+            // Update proxy list based on selected server
+            switch (server) {
+                case 'uv':
+                    proxyServers = [
+                        { ip: '47.88.59.79', port: '82', type: 'http', country: 'US', speed: '303ms', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now' },
+                        { ip: '43.135.186.62', port: '13001', type: 'http', country: 'US', speed: '5.1s', protocol: 'HTTP (Elite)', location: 'United States', reliability: '92%', lastChecked: 'Just now' }
+                    ];
+                    break;
+                case 'dynamic':
+                    proxyServers = [
+                        { ip: '68.188.93.171', port: '8080', type: 'http', country: 'US', speed: '242ms', protocol: 'HTTP (Transparent)', location: 'United States', reliability: '100%', lastChecked: 'Just now' },
+                        { ip: '72.10.164.178', port: '8080', type: 'http', country: 'US', speed: '189ms', protocol: 'HTTP (Transparent)', location: 'United States', reliability: '98%', lastChecked: 'Just now' }
+                    ];
+                    break;
+                case 'rammerhead':
+                    proxyServers = [
+                        { ip: '45.33.48.119', port: '8080', type: 'http', country: 'US', speed: '156ms', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now' },
+                        { ip: '45.33.48.120', port: '8080', type: 'http', country: 'US', speed: '167ms', protocol: 'HTTP (Elite)', location: 'United States', reliability: '100%', lastChecked: 'Just now' }
+                    ];
+                    break;
+            }
+            
+            // Reinitialize proxy list
+            initializeProxyList();
+        });
+
+        // Add cloaking method descriptions
+        const methodDescriptions = {
+            'about-blank': 'Opens the target URL in an about:blank frame with custom title and favicon.',
+            'data-url': 'Encodes the target URL as a data URL for stealthy loading.',
+            'iframe': 'Loads the target URL in a hidden iframe with custom styling.',
+            'meta-refresh': 'Uses meta refresh to redirect to the target URL after a delay.',
+            'window-open': 'Opens the target URL in a new window with custom properties.',
+            'javascript': 'Uses JavaScript to dynamically load and cloak the target URL.',
+            'html5': 'Utilizes HTML5 features for advanced cloaking techniques.',
+            'svg': 'Embeds the target URL within an SVG for visual cloaking.',
+            'canvas': 'Renders the target URL content on a canvas element.',
+            'webgl': 'Uses WebGL to render and cloak the target URL content.',
+            '301': 'Permanent redirect cloaking using 301 status code.',
+            '302': 'Temporary redirect cloaking using 302 status code.',
+            '307': 'Temporary redirect cloaking using 307 status code.',
+            'meta': 'Meta tag based redirect cloaking.',
+            'js-redirect': 'JavaScript based redirect cloaking.',
+            'frame-busting': 'Prevents frame busting while maintaining cloaking.',
+            'frame-hiding': 'Hides the frame while maintaining functionality.',
+            'frame-overlay': 'Adds an overlay to the frame for additional cloaking.',
+            'frame-transparent': 'Makes the frame transparent while maintaining content.',
+            'frame-custom': 'Custom frame configuration for advanced cloaking.',
+            'text-replace': 'Replaces specific text content for cloaking.',
+            'image-replace': 'Replaces images with cloaked versions.',
+            'style-inject': 'Injects custom styles for cloaking.',
+            'script-inject': 'Injects custom scripts for cloaking.',
+            'content-filter': 'Filters and modifies content for cloaking.',
+            'subdomain': 'Uses subdomain cloaking techniques.',
+            'path': 'Uses path-based cloaking techniques.',
+            'query': 'Uses query string cloaking techniques.',
+            'hash': 'Uses hash-based cloaking techniques.',
+            'domain-mask': 'Masks the domain while maintaining functionality.',
+            'user-agent': 'Modifies user agent for cloaking.',
+            'screen-size': 'Modifies screen size reporting for cloaking.',
+            'timezone': 'Modifies timezone reporting for cloaking.',
+            'language': 'Modifies language reporting for cloaking.',
+            'plugins': 'Modifies plugin reporting for cloaking.',
+            'websocket': 'Uses WebSocket for real-time cloaking.',
+            'service-worker': 'Uses Service Worker for advanced cloaking.',
+            'web-worker': 'Uses Web Worker for background cloaking.',
+            'shared-worker': 'Uses Shared Worker for multi-tab cloaking.',
+            'indexeddb': 'Uses IndexedDB for storage-based cloaking.',
+            'popup': 'Opens a new window with custom properties for cloaking.',
+            'tab-cloak': 'Creates a new tab with custom styling for cloaking.',
+            'history-cloak': 'Modifies browser history for cloaking.',
+            'bookmark-cloak': 'Modifies bookmarks for cloaking.',
+            'download-cloak': 'Modifies download links for cloaking.',
+            'dom-manipulation': 'Manipulates DOM elements for cloaking.',
+            'element-cloak': 'Cloaks specific elements on the page.',
+            'attribute-cloak': 'Cloaks specific attributes on elements.',
+            'class-cloak': 'Cloaks specific classes on elements.',
+            'id-cloak': 'Cloaks specific IDs on elements.',
+            'dns-cloak': 'Cloaks DNS queries for cloaking.',
+            'ip-cloak': 'Cloaks IP addresses for cloaking.',
+            'port-cloak': 'Cloaks port numbers for cloaking.',
+            'protocol-cloak': 'Cloaks protocol names for cloaking.',
+            'host-cloak': 'Cloaks host names for cloaking.',
+            'canvas-fp': 'Cloaks canvas fingerprint for cloaking.',
+            'webgl-fp': 'Cloaks WebGL fingerprint for cloaking.',
+            'audio-fp': 'Cloaks audio fingerprint for cloaking.',
+            'battery-fp': 'Cloaks battery fingerprint for cloaking.',
+            'csp-cloak': 'Cloaks CSP headers for cloaking.',
+            'xss-cloak': 'Cloaks XSS vulnerabilities for cloaking.',
+            'csrf-cloak': 'Cloaks CSRF tokens for cloaking.',
+            'clickjacking-cloak': 'Cloaks clickjacking vulnerabilities for cloaking.',
+            'mitm-cloak': 'Cloaks MITM attacks for cloaking.',
+            'ssl-cloak': 'Cloaks SSL/TLS vulnerabilities for cloaking.',
+            'tls-cloak': 'Cloaks TLS vulnerabilities for cloaking.',
+            'cert-cloak': 'Cloaks SSL certificates for cloaking.',
+            'key-cloak': 'Cloaks SSL keys for cloaking.',
+            'token-cloak': 'Cloaks authentication tokens for cloaking.',
+            'dns-cloak': 'Cloaks DNS queries for cloaking.',
+            'ip-cloak': 'Cloaks IP addresses for cloaking.',
+            'port-cloak': 'Cloaks port numbers for cloaking.',
+            'protocol-cloak': 'Cloaks protocol names for cloaking.',
+            'host-cloak': 'Cloaks host names for cloaking.',
+            'referrer-cloak': 'Cloaks HTTP referrer for cloaking.',
+            'local-storage': 'Cloaks local storage for cloaking.',
+            'session-storage': 'Cloaks session storage for cloaking.',
+            'cache-storage': 'Cloaks cache storage for cloaking.',
+            'cookie-cloak': 'Cloaks cookies for cloaking.',
+            'storage-cloak': 'Cloaks storage for cloaking.'
         };
 
-        // Handle new tab
-        document.getElementById('new-tab-btn').onclick = async function() {
-            const url = document.getElementById('url-input').value;
+        // Update description when method is selected
+        document.getElementById('cloaking-method').addEventListener('change', function() {
+            const method = this.value;
+            document.getElementById('method-description').textContent = methodDescriptions[method] || 'No description available.';
+        });
+
+        // Handle preview button
+        document.getElementById('preview-cloak').addEventListener('click', function() {
+            const method = document.getElementById('cloaking-method').value;
+            const targetUrl = document.getElementById('target-url').value;
+            const displayUrl = document.getElementById('display-url').value;
+            const title = document.getElementById('cloak-title').value;
+            const favicon = document.getElementById('favicon-url').value;
+            
+            // Generate preview based on selected method
+            const previewFrame = document.getElementById('preview-frame');
+            previewFrame.innerHTML = generatePreview(method, targetUrl, displayUrl, title, favicon);
+        });
+
+        // Handle apply button
+        document.getElementById('apply-cloak').addEventListener('click', function() {
+            const method = document.getElementById('cloaking-method').value;
+            const targetUrl = document.getElementById('target-url').value;
+            const displayUrl = document.getElementById('display-url').value;
+            const title = document.getElementById('cloak-title').value;
+            const favicon = document.getElementById('favicon-url').value;
+            
+            // Apply cloaking based on selected method
+            applyCloaking(method, targetUrl, displayUrl, title, favicon);
+        });
+
+        // Handle save preset button
+        document.getElementById('save-cloak').addEventListener('click', function() {
+            const method = document.getElementById('cloaking-method').value;
+            const targetUrl = document.getElementById('target-url').value;
+            const displayUrl = document.getElementById('display-url').value;
+            const title = document.getElementById('cloak-title').value;
+            const favicon = document.getElementById('favicon-url').value;
+            
+            // Save cloaking preset
+            saveCloakingPreset(method, targetUrl, displayUrl, title, favicon);
+        });
+
+        // Helper functions
+        function generatePreview(method, targetUrl, displayUrl, title, favicon) {
+            // Generate preview HTML based on method
+            // This is a simplified example
+            return `
+                <div style="color: #0f0; padding: 20px;">
+                    <h3>${title || 'Preview'}</h3>
+                    <p>Method: ${method}</p>
+                    <p>Target URL: ${targetUrl}</p>
+                    <p>Display URL: ${displayUrl}</p>
+                    <p>Favicon: ${favicon}</p>
+                </div>
+            `;
+        }
+
+        function applyCloaking(method, targetUrl, displayUrl, title, favicon) {
+            // Apply cloaking based on method
+            // This is a simplified example
+            switch(method) {
+                case 'about-blank':
+                    // Implement about:blank cloaking
+                    break;
+                case 'data-url':
+                    // Implement data URL cloaking
+                    break;
+                // Add more cases for other methods
+            }
+        }
+
+        function saveCloakingPreset(method, targetUrl, displayUrl, title, favicon) {
+            // Save cloaking preset
+            // This is a simplified example
+            const preset = {
+                method,
+                targetUrl,
+                displayUrl,
+                title,
+                favicon,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Save to localStorage or send to server
+            console.log('Saving preset:', preset);
+        }
+
+        // Add new tab button functionality
+        document.getElementById('new-tab-btn').addEventListener('click', function() {
+            const url = document.getElementById('url-input').value.trim();
+            if (url) {
+                navigateToUrl(url);
+            } else {
+                alert('Please enter a URL');
+            }
+        });
+
+        // Update existing navigate button to open in current window
+        document.getElementById('navigate-btn').addEventListener('click', function() {
+            const url = document.getElementById('url-input').value.trim();
+            if (url) {
+                // Format URL if needed
+                let formattedUrl = url;
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    formattedUrl = 'https://' + url;
+                }
+                
+                // Get selected proxy server
+                const proxyServer = document.getElementById('proxyServer').value;
+                let proxyUrl;
+                switch (proxyServer) {
+                    case 'uv':
+                        proxyUrl = `/uv/${formattedUrl}`;
+                        break;
+                    case 'dynamic':
+                        proxyUrl = `/dynamic/${formattedUrl}`;
+                        break;
+                    case 'rammerhead':
+                        proxyUrl = `/rammerhead/${formattedUrl}`;
+                        break;
+                    default:
+                        proxyUrl = `/uv/${formattedUrl}`;
+                }
+                
+                // Open in current window
+                window.location.href = proxyUrl;
+            } else {
+                alert('Please enter a URL');
+            }
+        });
+
+        // Add new tab cloaking functionality
+        function initializeNewTabCloaking() {
+            const presetButtons = document.querySelectorAll('.preset-btn');
+            const cloakingOptions = {
+                google: {
+                    title: 'Google',
+                    favicon: 'https://www.google.com/favicon.ico',
+                    displayUrl: 'https://www.google.com'
+                },
+                youtube: {
+                    title: 'YouTube',
+                    favicon: 'https://www.youtube.com/favicon.ico',
+                    displayUrl: 'https://www.youtube.com'
+                },
+                docs: {
+                    title: 'Google Docs',
+                    favicon: 'https://docs.google.com/favicon.ico',
+                    displayUrl: 'https://docs.google.com'
+                },
+                classroom: {
+                    title: 'Google Classroom',
+                    favicon: 'https://classroom.google.com/favicon.ico',
+                    displayUrl: 'https://classroom.google.com'
+                },
+                canvas: {
+                    title: 'Canvas',
+                    favicon: 'https://www.canvas.net/favicon.ico',
+                    displayUrl: 'https://www.canvas.net'
+                },
+                khan: {
+                    title: 'Khan Academy',
+                    favicon: 'https://www.khanacademy.org/favicon.ico',
+                    displayUrl: 'https://www.khanacademy.org'
+                },
+                edpuzzle: {
+                    title: 'Edpuzzle',
+                    favicon: 'https://edpuzzle.com/favicon.ico',
+                    displayUrl: 'https://edpuzzle.com'
+                },
+                quizlet: {
+                    title: 'Quizlet',
+                    favicon: 'https://quizlet.com/favicon.ico',
+                    displayUrl: 'https://quizlet.com'
+                },
+                nearpod: {
+                    title: 'Nearpod',
+                    favicon: 'https://nearpod.com/favicon.ico',
+                    displayUrl: 'https://nearpod.com'
+                },
+                pearson: {
+                    title: 'Pearson',
+                    favicon: 'https://www.pearson.com/favicon.ico',
+                    displayUrl: 'https://www.pearson.com'
+                },
+                mcgraw: {
+                    title: 'McGraw Hill',
+                    favicon: 'https://www.mheducation.com/favicon.ico',
+                    displayUrl: 'https://www.mheducation.com'
+                },
+                schoology: {
+                    title: 'Schoology',
+                    favicon: 'https://www.schoology.com/favicon.ico',
+                    displayUrl: 'https://www.schoology.com'
+                },
+                blackboard: {
+                    title: 'Blackboard',
+                    favicon: 'https://www.blackboard.com/favicon.ico',
+                    displayUrl: 'https://www.blackboard.com'
+                },
+                moodle: {
+                    title: 'Moodle',
+                    favicon: 'https://moodle.org/favicon.ico',
+                    displayUrl: 'https://moodle.org'
+                },
+                edmodo: {
+                    title: 'Edmodo',
+                    favicon: 'https://www.edmodo.com/favicon.ico',
+                    displayUrl: 'https://www.edmodo.com'
+                },
+                seesaw: {
+                    title: 'Seesaw',
+                    favicon: 'https://web.seesaw.me/favicon.ico',
+                    displayUrl: 'https://web.seesaw.me'
+                },
+                flipgrid: {
+                    title: 'Flipgrid',
+                    favicon: 'https://flipgrid.com/favicon.ico',
+                    displayUrl: 'https://flipgrid.com'
+                },
+                padlet: {
+                    title: 'Padlet',
+                    favicon: 'https://padlet.com/favicon.ico',
+                    displayUrl: 'https://padlet.com'
+                },
+                wakelet: {
+                    title: 'Wakelet',
+                    favicon: 'https://wakelet.com/favicon.ico',
+                    displayUrl: 'https://wakelet.com'
+                },
+                peardeck: {
+                    title: 'Pear Deck',
+                    favicon: 'https://www.peardeck.com/favicon.ico',
+                    displayUrl: 'https://www.peardeck.com'
+                }
+            };
+
+            presetButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const preset = this.dataset.preset;
+                    const options = cloakingOptions[preset];
+                    
+                    document.getElementById('new-tab-title').value = options.title;
+                    document.getElementById('new-tab-favicon').value = options.favicon;
+                    document.getElementById('new-tab-display-url').value = options.displayUrl;
+                });
+            });
+        }
+
+        // Update the navigateToUrl function to handle new tab cloaking
+        function navigateToUrl(url) {
+            if (!url) return;
+            
+            // Format URL if needed
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            
+            // Get active proxy
+            const activeProxy = getActiveProxy();
+            if (!activeProxy) {
+                alert('Please select a proxy server first');
+                return;
+            }
+            
+            // Get selected proxy type
+            const proxyType = document.getElementById('proxyType').value;
+            const proxyServer = document.getElementById('proxyServer').value;
+            
+            // Construct proxy URL based on selected proxy server
+            let proxyUrl;
+            switch (proxyServer) {
+                case 'uv':
+                    proxyUrl = `/uv/${url}`;
+                    break;
+                case 'dynamic':
+                    proxyUrl = `/dynamic/${url}`;
+                    break;
+                case 'rammerhead':
+                    proxyUrl = `/rammerhead/${url}`;
+                    break;
+                default:
+                    proxyUrl = `/uv/${url}`;
+            }
+            
+            // Create a new window with specific features
+            const newWindow = window.open('', '_blank', 'width=1024,height=768,menubar=no,toolbar=no,location=no,status=no');
+            
+            if (!newWindow) {
+                alert('Please allow popups for this site to open in a new tab');
+                return;
+            }
+            
+            // Get cloaking options
+            const cloakTitle = document.getElementById('cloak-new-tab-title').checked;
+            const cloakFavicon = document.getElementById('cloak-new-tab-favicon').checked;
+            const cloakUrlBar = document.getElementById('cloak-new-tab-url').checked;
+            const cloakHistory = document.getElementById('cloak-new-tab-history').checked;
+            
+            const customTitle = document.getElementById('new-tab-title').value;
+            const customFavicon = document.getElementById('new-tab-favicon').value;
+            const displayUrl = document.getElementById('new-tab-display-url').value;
+            
+            // Write basic HTML structure to the new window with cloaking
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${cloakTitle ? customTitle : 'Loading...'}</title>
+                    ${cloakFavicon ? `<link rel="icon" type="image/x-icon" href="${customFavicon}">` : ''}
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            background: #000;
+                            color: #0f0;
+                            font-family: 'Courier New', monospace;
+                        }
+                        iframe {
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                        }
+                        .error-container {
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background: rgba(0, 20, 0, 0.7);
+                            border: 1px solid #0f0;
+                            padding: 20px;
+                            text-align: center;
+                            color: #0f0;
+                        }
+                        .close-btn {
+                            background: #0f0;
+                            color: #000;
+                            border: none;
+                            padding: 5px 10px;
+                            margin-top: 10px;
+                            cursor: pointer;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe id="proxy-frame" src="${proxyUrl}"></iframe>
+                </body>
+                </html>
+            `);
+            
+            // Get the iframe element
+            const iframe = newWindow.document.getElementById('proxy-frame');
+            
+            // Apply security settings
+            const blockScripts = document.getElementById('blockScripts').checked;
+            const blockFingerprint = document.getElementById('blockFingerprint').checked;
+            const blockCookies = document.getElementById('blockCookies').checked;
+            
+            if (blockScripts) {
+                iframe.sandbox = 'allow-same-origin allow-forms allow-popups allow-modals';
+            }
+            
+            if (blockFingerprint) {
+                iframe.setAttribute('data-fingerprint-protection', 'true');
+            }
+            
+            if (blockCookies) {
+                iframe.setAttribute('data-cookie-protection', 'true');
+            }
+            
+            // Apply cloaking
+            if (cloakUrlBar && displayUrl && newWindow.history && newWindow.history.pushState) {
+                newWindow.history.pushState({}, customTitle || newWindow.document.title, displayUrl);
+            }
+            
+            // Handle iframe errors
+            iframe.onerror = function() {
+                newWindow.document.body.innerHTML = `
+                    <div class="error-container">
+                        <h2>Error</h2>
+                        <p>Failed to load the page. The proxy server might be unavailable or blocked.</p>
+                        <button class="close-btn" onclick="window.close()">Close Tab</button>
+                    </div>
+                `;
+            };
+        }
+
+        // Initialize new tab cloaking when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNewTabCloaking();
+        });
+
+        // Simple cloaking function
+        function cloak(url, title, favicon, displayUrl) {
             if (!url) {
                 alert('Please enter a URL');
                 return;
             }
 
-            const proxyUrl = await handleProxyUrl(url);
-            if (proxyUrl) {
-                const win = window.open('about:blank');
-                win.document.write(`
-                    <html>
+            // Format URL if needed
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+
+            // Create new window
+            const win = window.open();
+            if (!win) {
+                alert('Please allow popups to use cloaking');
+                return;
+            }
+
+            // Set basic HTML content
+            win.document.write(`
+                <html>
                     <head>
-                        <title>Canvas LMS</title>
-                        <link rel="icon" href="https://sso.canvaslms.com/login/canvas/favicon.ico">
+                        <title>${title || 'Loading...'}</title>
+                        ${favicon ? `<link rel="icon" href="${favicon}" type="image/x-icon">` : ''}
+                        <style>
+                            body, html { margin: 0; padding: 0; height: 100%; }
+                            iframe { border: none; width: 100%; height: 100%; }
+                        </style>
                     </head>
-                    <body style="margin:0;padding:0;">
-                        <iframe src="${proxyUrl}" style="border:none;width:100%;height:100vh;"></iframe>
+                    <body>
+                        <iframe src="${url}"></iframe>
                     </body>
-                    </html>
-                `);
-                win.document.close();
-            }
-        };
+                </html>
+            `);
 
-        // Handle about:blank tab
-        document.getElementById('ab-apply').onclick = async function() {
+            // Set display URL if provided
+            if (displayUrl) {
+                try {
+                    win.history.pushState({}, '', displayUrl);
+                } catch (e) {
+                    console.error('Failed to set display URL:', e);
+                }
+            }
+
+            win.document.close();
+        }
+
+        // Simple about:blank cloaking
+        document.getElementById('ab-apply').onclick = function() {
             const url = document.getElementById('ab-target-url').value;
+            const title = document.getElementById('ab-title').value;
+            const favicon = document.getElementById('ab-favicon').value;
+            const displayUrl = document.getElementById('ab-display-url').value;
+
             if (!url) {
                 alert('Please enter a URL');
                 return;
             }
 
-            const proxyUrl = await handleProxyUrl(url);
-            if (proxyUrl) {
-                const win = window.open('about:blank');
-                win.document.write(`
-                    <html>
-                    <head>
-                        <title>Canvas LMS</title>
-                        <link rel="icon" href="https://sso.canvaslms.com/login/canvas/favicon.ico">
-                    </head>
-                    <body style="margin:0;padding:0;">
-                        <iframe src="${proxyUrl}" style="border:none;width:100%;height:100vh;"></iframe>
-                    </body>
-                    </html>
-                `);
-                win.document.close();
+            const win = window.open('about:blank');
+            if (!win) {
+                alert('Please allow popups');
+                return;
+            }
+
+            win.document.write(`
+                <html>
+                <head>
+                    <title>${title || 'Loading...'}</title>
+                    ${favicon ? `<link rel="icon" href="${favicon}">` : ''}
+                </head>
+                <body style="margin:0;padding:0;overflow:hidden;">
+                    <iframe src="${url}" style="border:none;width:100vw;height:100vh;"></iframe>
+                </body>
+                </html>
+            `);
+
+            if (displayUrl) {
+                try {
+                    win.history.pushState({}, '', displayUrl);
+                } catch (e) {
+                    console.error('Failed to set URL:', e);
+                }
             }
         };
 
-        // Keep all other existing scripts
-        // ... rest of existing scripts ...
+        // Handle preset buttons
+        const presets = {
+            'google': {
+                url: 'https://www.google.com',
+                title: 'Google',
+                favicon: 'https://www.google.com/favicon.ico'
+            },
+            'youtube': {
+                url: 'https://www.youtube.com',
+                title: 'YouTube',
+                favicon: 'https://www.youtube.com/favicon.ico'
+            },
+            'classroom': {
+                url: 'https://classroom.google.com',
+                title: 'Google Classroom',
+                favicon: 'https://classroom.google.com/favicon.ico'
+            },
+            'docs': {
+                url: 'https://docs.google.com',
+                title: 'Google Docs',
+                favicon: 'https://docs.google.com/favicon.ico'
+            }
+        };
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.onclick = function() {
+                const preset = presets[this.getAttribute('data-preset')];
+                if (preset) {
+                    document.getElementById('ab-target-url').value = preset.url;
+                    document.getElementById('ab-title').value = preset.title;
+                    document.getElementById('ab-favicon').value = preset.favicon;
+                    document.getElementById('ab-display-url').value = preset.url;
+                }
+            };
+        });
+
+        // Add click handler for preview button
+        document.getElementById('ab-preview').addEventListener('click', function() {
+            const targetUrl = document.getElementById('ab-target-url').value;
+            const title = document.getElementById('ab-title').value;
+            const favicon = document.getElementById('ab-favicon').value;
+            const displayUrl = document.getElementById('ab-display-url').value;
+
+            alert(
+                'Preview Settings:\n\n' +
+                'Title: ' + title + '\n' +
+                'URL: ' + targetUrl + '\n' +
+                'Display URL: ' + displayUrl + '\n' +
+                'Favicon: ' + favicon
+            );
+        });
+
+        // Add click handlers for checkboxes in cloaking tab
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.onclick = function() {
+                const id = this.id;
+                const isChecked = this.checked;
+                localStorage.setItem(id, isChecked);
+            };
+        });
+
+        // Handle cloaking tab functionality
+        document.querySelectorAll('.preset-btn').forEach(button => {
+            button.onclick = function() {
+                const presetName = this.getAttribute('data-preset');
+                let title, favicon, displayUrl;
+                
+                switch(presetName) {
+                    case 'google':
+                        title = 'Google';
+                        favicon = 'https://www.google.com/favicon.ico';
+                        displayUrl = 'https://www.google.com';
+                        break;
+                    case 'youtube':
+                        title = 'YouTube';
+                        favicon = 'https://www.youtube.com/favicon.ico';
+                        displayUrl = 'https://www.youtube.com';
+                        break;
+                    case 'docs':
+                        title = 'Google Docs';
+                        favicon = 'https://docs.google.com/favicon.ico';
+                        displayUrl = 'https://docs.google.com';
+                        break;
+                    case 'classroom':
+                        title = 'Google Classroom';
+                        favicon = 'https://classroom.google.com/favicon.ico';
+                        displayUrl = 'https://classroom.google.com';
+                        break;
+                    case 'canvas':
+                        title = 'Canvas';
+                        favicon = 'https://canvas.instructure.com/favicon.ico';
+                        displayUrl = 'https://canvas.instructure.com';
+                        break;
+                    case 'khan':
+                        title = 'Khan Academy';
+                        favicon = 'https://www.khanacademy.org/favicon.ico';
+                        displayUrl = 'https://www.khanacademy.org';
+                        break;
+                }
+
+                // Set form values
+                document.getElementById('new-tab-title').value = title;
+                document.getElementById('new-tab-favicon').value = favicon;
+                document.getElementById('new-tab-display-url').value = displayUrl;
+
+                // Apply changes immediately if checkboxes are checked
+                if (document.getElementById('cloak-new-tab-title').checked) {
+                    document.title = title;
+                }
+                if (document.getElementById('cloak-new-tab-favicon').checked) {
+                    let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                    link.type = 'image/x-icon';
+                    link.rel = 'shortcut icon';
+                    link.href = favicon;
+                    document.getElementsByTagName('head')[0].appendChild(link);
+                }
+                if (document.getElementById('cloak-new-tab-url').checked && window.history && window.history.pushState) {
+                    window.history.pushState({}, title, displayUrl);
+                }
+
+                // Visual feedback
+                button.style.backgroundColor = 'rgba(0, 255, 0, 0.3)';
+                setTimeout(() => button.style.backgroundColor = '', 300);
+            };
+        });
+
+        // Simple preset cloaking
+        document.querySelectorAll('.preset-btn').forEach(button => {
+            button.onclick = function() {
+                const presetName = this.getAttribute('data-preset');
+                let title, favicon;
+                
+                switch(presetName) {
+                    case 'google':
+                        title = 'Google';
+                        favicon = 'https://www.google.com/favicon.ico';
+                        break;
+                    case 'youtube':
+                        title = 'YouTube';
+                        favicon = 'https://www.youtube.com/favicon.ico';
+                        break;
+                    case 'docs':
+                        title = 'Google Docs';
+                        favicon = 'https://docs.google.com/favicon.ico';
+                        break;
+                    case 'classroom':
+                        title = 'Google Classroom';
+                        favicon = 'https://classroom.google.com/favicon.ico';
+                        break;
+                }
+
+                // Change title
+                document.title = title;
+
+                // Change favicon
+                let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                link.type = 'image/x-icon';
+                link.rel = 'shortcut icon';
+                link.href = favicon;
+                document.getElementsByTagName('head')[0].appendChild(link);
+
+                // Visual feedback
+                button.style.backgroundColor = 'rgba(0, 255, 0, 0.3)';
+                setTimeout(() => button.style.backgroundColor = '', 300);
+            };
+        });
+
+        // Simple tab cloaking
+        document.querySelectorAll('.cloak-btn').forEach(button => {
+            button.onclick = function() {
+                // Get title and favicon from button's data attributes
+                const title = this.getAttribute('data-title');
+                const favicon = this.getAttribute('data-favicon');
+                
+                // Change the page title
+                document.title = title;
+                
+                // Change the favicon
+                let link = document.querySelector("link[rel~='icon']");
+                if (!link) {
+                    link = document.createElement('link');
+                    link.rel = 'icon';
+                    document.head.appendChild(link);
+                }
+                link.href = favicon;
+                
+                // Visual feedback
+                this.style.backgroundColor = 'rgba(0, 255, 0, 0.3)';
+                setTimeout(() => this.style.backgroundColor = '', 300);
+            };
+        });
+
+        // Simple tab switching
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.main-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Show the selected tab content
+            document.getElementById(tabId + '-tab').style.display = 'block';
+            
+            // Update active tab
+            document.querySelectorAll('.main-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        }
+
+        // Add click handlers for tabs
+        document.querySelectorAll('.main-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
+
+        // Show first tab by default
+        switchTab('home');
+
+        function setTab(title, faviconUrl) {
+            // Set the page title
+            document.title = title;
+
+            // Remove existing favicon
+            var links = document.getElementsByTagName('link');
+            for (var i = 0; i < links.length; i++) {
+                if (links[i].rel.includes('icon')) {
+                    links[i].parentNode.removeChild(links[i]);
+                }
+            }
+
+            // Add new favicon
+            var link = document.createElement('link');
+            link.rel = 'icon';
+            link.href = faviconUrl;
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+
+        // Change title and favicon automatically on page load
+        document.title = 'Canvas LMS';
+        
+        // Remove any existing favicon
+        var links = document.getElementsByTagName('link');
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].rel.includes('icon')) {
+                links[i].parentNode.removeChild(links[i]);
+            }
+        }
+        
+        // Add Canvas favicon
+        var link = document.createElement('link');
+        link.rel = 'icon';
+        link.href = 'https://sso.canvaslms.com/login/canvas/favicon.ico';
+        document.getElementsByTagName('head')[0].appendChild(link);
+
+        document.getElementById('khan-cloak').onclick = function() {
+            setTab('Khan Academy', 'https://www.khanacademy.org/favicon.ico');
+        };
+
+        document.getElementById('classroom-cloak').onclick = function() {
+            setTab('Google Classroom', 'https://classroom.google.com/favicon.ico');
+        };
+
+        document.getElementById('canvas-cloak').onclick = function() {
+            setTab('Canvas LMS', 'https://sso.canvaslms.com/login/canvas/favicon.ico');
+        };
+
+        // Add this function to your existing JavaScript
+        function openGame(url) {
+            // Create a new window with about:blank
+            const newWindow = window.open('about:blank', '_blank');
+            
+            // Write the iframe content to the new window
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Game</title>
+                    <style>
+                        body, html {
+                            margin: 0;
+                            padding: 0;
+                            width: 100%;
+                            height: 100%;
+                            overflow: hidden;
+                        }
+                        iframe {
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe src="${url}" allowfullscreen></iframe>
+                </body>
+                </html>
+            `);
+            newWindow.document.close();
+        }
+
+        function searchGames() {
+            const input = document.getElementById('gameSearch');
+            const filter = input.value.toUpperCase();
+            const gameCards = document.getElementsByClassName('game-card');
+            
+            for (let i = 0; i < gameCards.length; i++) {
+                const h3 = gameCards[i].getElementsByTagName('h3')[0];
+                const txtValue = h3.textContent || h3.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    gameCards[i].style.display = "";
+                } else {
+                    gameCards[i].style.display = "none";
+                }
+            }
+        }
     </script>
 </body>
 </html> 
